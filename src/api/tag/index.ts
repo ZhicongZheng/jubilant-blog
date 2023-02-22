@@ -1,15 +1,15 @@
-import { Result } from "@/model";
-import request from "@/utils/request";
-import { AxiosPromise } from "axios";
-import { ArticleConditionList, ArticleQuery } from "../article/types";
-import { Tag } from "./types";
+import {Result} from "@/model";
+import {AxiosPromise} from "axios";
+import {ArticleConditionList, ArticleQuery} from "../article/types";
+import {Tag} from "./types";
+import {request as request1} from "@/request/service";
 
 /**
  * 查看文章标签
  * @returns 文章标签
  */
 export function getTagList(): AxiosPromise<Result<Tag[]>> {
-  return request({
+  return request1({
     url: "/tag/list",
     method: "get",
   });
@@ -22,7 +22,7 @@ export function getTagList(): AxiosPromise<Result<Tag[]>> {
 export function getTagArticleList(
   params: ArticleQuery
 ): AxiosPromise<Result<ArticleConditionList>> {
-  return request({
+  return request1({
     url: "/tag/article",
     method: "get",
     params,

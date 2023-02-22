@@ -1,7 +1,7 @@
-import { PageQuery, PageResult, Result } from "@/model";
-import request from "@/utils/request";
-import { AxiosPromise } from "axios";
-import { Article, ArticleInfo, ArticleRecommend, ArticleSearch } from "./types";
+import {PageQuery, PageResult, Result} from "@/model";
+import {AxiosPromise} from "axios";
+import {Article, ArticleInfo, ArticleRecommend, ArticleSearch} from "./types";
+import {request as request1} from "@/request/service";
 
 /**
  * 查看文章列表
@@ -9,7 +9,7 @@ import { Article, ArticleInfo, ArticleRecommend, ArticleSearch } from "./types";
  * @returns 文章列表
  */
 export function getArticleList(params: PageQuery): AxiosPromise<Result<PageResult<Article[]>>> {
-  return request({
+  return request1({
     url: "/article/list",
     method: "get",
     params,
@@ -21,7 +21,7 @@ export function getArticleList(params: PageQuery): AxiosPromise<Result<PageResul
  * @param articleId 文章id
  */
 export function getArticle(articleId: number): AxiosPromise<Result<ArticleInfo>> {
-  return request({
+  return request1({
     url: `/article/${articleId}`,
     method: "get",
   });
@@ -32,7 +32,7 @@ export function getArticle(articleId: number): AxiosPromise<Result<ArticleInfo>>
  * @returns 推荐文章
  */
 export function getArticleRecommend(): AxiosPromise<Result<ArticleRecommend[]>> {
-  return request({
+  return request1({
     url: "/article/recommend",
     method: "get",
   });
@@ -43,7 +43,7 @@ export function getArticleRecommend(): AxiosPromise<Result<ArticleRecommend[]>> 
  * @returns 文章列表
  */
 export function searchArticle(keyword: string): AxiosPromise<Result<ArticleSearch[]>> {
-  return request({
+  return request1({
     url: "/article/search",
     method: "get",
     params: {
@@ -57,7 +57,7 @@ export function searchArticle(keyword: string): AxiosPromise<Result<ArticleSearc
  * @param articleId 文章id
  */
 export function likeArticle(articleId: number): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: `/article/${articleId}/like`,
     method: "post",
   });

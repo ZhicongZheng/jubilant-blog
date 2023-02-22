@@ -1,14 +1,14 @@
-import { PageQuery, PageResult, Result } from "@/model";
-import request from "@/utils/request";
-import { AxiosPromise } from "axios";
-import { Comment, CommentForm, CommentQuery, RecentComment, Reply } from "./types";
+import {PageQuery, PageResult, Result} from "@/model";
+import {AxiosPromise} from "axios";
+import {Comment, CommentForm, CommentQuery, RecentComment, Reply} from "./types";
+import {request as request1} from "@/request/service";
 
 /**
  * 查看最新评论
  * @returns 最新评论
  */
 export function getRecentComment(): AxiosPromise<Result<RecentComment[]>> {
-  return request({
+  return request1({
     url: "/recent/comment",
     method: "get",
   });
@@ -18,7 +18,7 @@ export function getRecentComment(): AxiosPromise<Result<RecentComment[]>> {
  * 添加评论
  */
 export function addComment(data: CommentForm): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: "/comment/add",
     method: "post",
     data,
@@ -30,7 +30,7 @@ export function addComment(data: CommentForm): AxiosPromise<Result<null>> {
  * @returns 评论列表
  */
 export function getCommentList(params: CommentQuery): AxiosPromise<Result<PageResult<Comment[]>>> {
-  return request({
+  return request1({
     url: "/comment/list",
     method: "get",
     params,
@@ -44,7 +44,7 @@ export function getCommentList(params: CommentQuery): AxiosPromise<Result<PageRe
  * @returns 回复评论列表
  */
 export function getReplyList(commentId: number, params: PageQuery): AxiosPromise<Result<Reply[]>> {
-  return request({
+  return request1({
     url: `/comment/${commentId}/reply`,
     method: "get",
     params,
@@ -56,7 +56,7 @@ export function getReplyList(commentId: number, params: PageQuery): AxiosPromise
  * @param commentId 评论id
  */
 export function likeComment(commentId: number): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: `/comment/${commentId}/like`,
     method: "post",
   });

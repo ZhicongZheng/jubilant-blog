@@ -18,7 +18,7 @@ function createService() {
 
   service.defaults.timeout = 5000
 
-  service.defaults.baseURL = import.meta.env.VITE_BASE_API
+  service.defaults.baseURL = "/api/v1"
 
   service.defaults.withCredentials = true
 
@@ -34,8 +34,7 @@ function createService() {
           error.message = "请求错误 " + errMsg.message
           break
         case 401:
-          // 登录信息失效，直接跳转到登录页面
-          router.push("/login")
+          router.push("/")
           break
         case 403:
           error.message = "拒绝访问"

@@ -1,14 +1,14 @@
-import { Result, UserForm } from "@/model";
-import request from "@/utils/request";
-import { AxiosPromise } from "axios";
-import { EmailForm, UserInfo } from "./types";
+import {Result, UserForm} from "@/model";
+import {AxiosPromise} from "axios";
+import {EmailForm, UserInfo} from "./types";
+import {request as request1} from "@/request/service";
 
 /**
  * 修改用户密码
  * @param data 用户密码
  */
 export function updateUserPassword(data: UserForm): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: "/user/password",
     method: "put",
     data,
@@ -20,7 +20,7 @@ export function updateUserPassword(data: UserForm): AxiosPromise<Result<null>> {
  * @param data 头像
  */
 export function updateUserAvatar(data: FormData): AxiosPromise<Result<string>> {
-  return request({
+  return request1({
     url: "/user/avatar",
     method: "post",
     headers: { "content-type": "multipart/form-data" },
@@ -33,7 +33,7 @@ export function updateUserAvatar(data: FormData): AxiosPromise<Result<string>> {
  * @param data 用户邮箱
  */
 export function updateUserEmail(data: EmailForm): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: "/user/email",
     method: "put",
     data,
@@ -45,7 +45,7 @@ export function updateUserEmail(data: EmailForm): AxiosPromise<Result<null>> {
  * @param data 用户信息
  */
 export function updateUserInfo(data: UserInfo): AxiosPromise<Result<null>> {
-  return request({
+  return request1({
     url: "/user/info",
     method: "put",
     data,
