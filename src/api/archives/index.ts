@@ -1,7 +1,7 @@
-import {PageQuery, PageResult, Result} from "@/model";
-import {AxiosPromise} from "axios";
-import {Archives} from "./types";
-import {request as request1} from "@/request/service";
+import { PageQuery, PageResult, Result } from "@/model"
+import { AxiosPromise } from "axios"
+import { Archives } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 查看文章归档
@@ -12,6 +12,6 @@ export function getArchivesList(params: PageQuery): AxiosPromise<Result<PageResu
   return request1({
     url: "/archives/list",
     method: "get",
-    params,
-  });
+    params
+  })
 }

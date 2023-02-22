@@ -1,7 +1,7 @@
-import {Result, UserForm} from "@/model";
-import {AxiosPromise} from "axios";
-import {GitInfo, LoginForm, UserInfo} from "./types";
-import {request as request1} from "@/request/service";
+import { Result, UserForm } from "@/model"
+import { AxiosPromise } from "axios"
+import { GitInfo, LoginForm, UserInfo } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 用户登录
@@ -12,8 +12,8 @@ export function login(data: LoginForm): AxiosPromise<Result<string>> {
   return request1({
     url: "/login",
     method: "post",
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -24,8 +24,8 @@ export function register(data: UserForm): AxiosPromise<Result<null>> {
   return request1({
     url: "/register",
     method: "post",
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -35,8 +35,8 @@ export function register(data: UserForm): AxiosPromise<Result<null>> {
 export function getUserInfo(): AxiosPromise<Result<UserInfo>> {
   return request1({
     url: "/user/getUserInfo",
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -48,9 +48,9 @@ export function getCode(username: string): AxiosPromise<Result<null>> {
     url: "/code",
     method: "get",
     params: {
-      username,
-    },
-  });
+      username
+    }
+  })
 }
 
 /**
@@ -59,8 +59,8 @@ export function getCode(username: string): AxiosPromise<Result<null>> {
 export function logout(): AxiosPromise<Result<null>> {
   return request1({
     url: "/logout",
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -72,8 +72,8 @@ export function giteeLogin(data: GitInfo): AxiosPromise<Result<string>> {
   return request1({
     url: "/oauth/gitee",
     method: "post",
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -85,6 +85,6 @@ export function githubLogin(data: GitInfo): AxiosPromise<Result<string>> {
   return request1({
     url: "/oauth/github",
     method: "post",
-    data,
-  });
+    data
+  })
 }

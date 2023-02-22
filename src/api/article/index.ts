@@ -1,7 +1,7 @@
-import {PageQuery, PageResult, Result} from "@/model";
-import {AxiosPromise} from "axios";
-import {Article, ArticleInfo, ArticleRecommend, ArticleSearch} from "./types";
-import {request as request1} from "@/request/service";
+import { PageQuery, PageResult, Result } from "@/model"
+import { AxiosPromise } from "axios"
+import { Article, ArticleInfo, ArticleRecommend, ArticleSearch } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 查看文章列表
@@ -12,8 +12,8 @@ export function getArticleList(params: PageQuery): AxiosPromise<Result<PageResul
   return request1({
     url: "/article/list",
     method: "get",
-    params,
-  });
+    params
+  })
 }
 
 /**
@@ -23,8 +23,8 @@ export function getArticleList(params: PageQuery): AxiosPromise<Result<PageResul
 export function getArticle(articleId: number): AxiosPromise<Result<ArticleInfo>> {
   return request1({
     url: `/article/${articleId}`,
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -34,8 +34,8 @@ export function getArticle(articleId: number): AxiosPromise<Result<ArticleInfo>>
 export function getArticleRecommend(): AxiosPromise<Result<ArticleRecommend[]>> {
   return request1({
     url: "/article/recommend",
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -47,9 +47,9 @@ export function searchArticle(keyword: string): AxiosPromise<Result<ArticleSearc
     url: "/article/search",
     method: "get",
     params: {
-      keyword,
-    },
-  });
+      keyword
+    }
+  })
 }
 
 /**
@@ -59,6 +59,6 @@ export function searchArticle(keyword: string): AxiosPromise<Result<ArticleSearc
 export function likeArticle(articleId: number): AxiosPromise<Result<null>> {
   return request1({
     url: `/article/${articleId}/like`,
-    method: "post",
-  });
+    method: "post"
+  })
 }

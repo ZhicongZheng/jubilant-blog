@@ -5,11 +5,11 @@ export interface LoginForm {
   /**
    * 用户名
    */
-  username: string;
+  username: string
   /**
    * 密码
    */
-  password: string;
+  password: string
 }
 
 /**
@@ -19,47 +19,47 @@ export interface UserInfo {
   /**
    * 用户id
    */
-  id: number;
+  id: number
   /**
    * 头像
    */
-  avatar: string;
+  avatar: string
   /**
    * 昵称
    */
-  nickname: string;
+  nickname: string
   /**
    * 用户名
    */
-  username: string;
+  username: string
   /**
    * 邮箱
    */
-  email: string;
+  email: string
   /**
    * 个人网站
    */
-  webSite: string;
+  webSite: string
   /**
    * 个人简介
    */
-  intro: string;
+  intro: string
   /**
    * 登录方式
    */
-  loginType: number;
+  loginType: number
   /**
    * 文章点赞集合
    */
-  articleLikeSet: number[];
+  articleLikeSet: number[]
   /**
    * 评论点赞集合
    */
-  commentLikeSet: number[];
+  commentLikeSet: number[]
   /**
    * 说说点赞集合
    */
-  talkLikeSet: number[];
+  talkLikeSet: number[]
 }
 
 /**
@@ -69,5 +69,5 @@ export interface GitInfo {
   /**
    * 第三方code
    */
-  code: string;
+  code: string
 }

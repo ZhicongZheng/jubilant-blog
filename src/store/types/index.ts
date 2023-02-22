@@ -5,31 +5,31 @@ export interface AppState {
   /**
    * 侧边栏展开
    */
-  isCollapse: boolean;
+  isCollapse: boolean
   /**
    * 搜索框
    */
-  searchFlag: boolean;
+  searchFlag: boolean
   /**
    * 登录框
    */
-  loginFlag: boolean;
+  loginFlag: boolean
   /**
    * 注册框
    */
-  registerFlag: boolean;
+  registerFlag: boolean
   /**
    * 忘记密码框
    */
-  forgetFlag: boolean;
+  forgetFlag: boolean
   /**
    * 邮箱框
    */
-  emailFlag: boolean;
+  emailFlag: boolean
   /**
    * 左侧展开
    */
-  sideFlag: boolean;
+  sideFlag: boolean
 }
 
 /**
@@ -39,49 +39,49 @@ export interface UserState {
   /**
    * 用户id
    */
-  id?: number;
+  id?: number
   /**
    * 头像
    */
-  avatar: string;
+  avatar: string
   /**
    * 昵称
    */
-  nickname: string;
+  nickname: string
   /**
    * 用户名
    */
-  username: string;
+  username: string
   /**
    * 邮箱
    */
-  email: string;
+  email: string
   /**
    * 个人网站
    */
-  webSite: string;
+  webSite: string
   /**
    * 个人简介
    */
-  intro: string;
+  intro: string
   /**
    * 登录方式
    */
-  loginType?: number;
+  loginType?: number
   /**
    * 第三方登录之前的path
    */
-  path: string;
+  path: string
   /**
    * 文章点赞集合
    */
-  articleLikeSet: number[];
+  articleLikeSet: number[]
   /**
    * 评论点赞集合
    */
-  commentLikeSet: number[];
+  commentLikeSet: number[]
   /**
    * 说说点赞集合
    */
-  talkLikeSet: number[];
+  talkLikeSet: number[]
 }

@@ -6,5 +6,5 @@ export default {
   // github的client-id
   GITHUB_APP_ID: "***************************",
   // github回调地址
-  GITHUB_REDIRECT_URL: "***************************",
-};
+  GITHUB_REDIRECT_URL: "***************************"
+}

@@ -1,7 +1,7 @@
-import {PageQuery, PageResult, Result} from "@/model";
-import {AxiosPromise} from "axios";
-import {Talk} from "./types";
-import {request as request1} from "@/request/service";
+import { PageQuery, PageResult, Result } from "@/model"
+import { AxiosPromise } from "axios"
+import { Talk } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 查看说说列表
@@ -12,8 +12,8 @@ export function getTalkList(params: PageQuery): AxiosPromise<Result<PageResult<T
   return request1({
     url: "/talk/list",
     method: "get",
-    params,
-  });
+    params
+  })
 }
 
 /**
@@ -23,8 +23,8 @@ export function getTalkList(params: PageQuery): AxiosPromise<Result<PageResult<T
 export function getTalkHomeList(): AxiosPromise<Result<string[]>> {
   return request1({
     url: "/home/talk",
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -34,8 +34,8 @@ export function getTalkHomeList(): AxiosPromise<Result<string[]>> {
 export function getTalk(talkId: number): AxiosPromise<Result<Talk>> {
   return request1({
     url: `/talk/${talkId}`,
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -45,6 +45,6 @@ export function getTalk(talkId: number): AxiosPromise<Result<Talk>> {
 export function likeTalk(talkId: number): AxiosPromise<Result<null>> {
   return request1({
     url: `/talk/${talkId}/like`,
-    method: "post",
-  });
+    method: "post"
+  })
 }

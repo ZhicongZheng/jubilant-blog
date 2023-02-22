@@ -1,4 +1,4 @@
-import { AppState } from "../types";
+import { AppState } from "../types"
 
 const useAppStore = defineStore("useAppStore", {
   state: (): AppState => ({
@@ -8,27 +8,27 @@ const useAppStore = defineStore("useAppStore", {
     registerFlag: false,
     forgetFlag: false,
     emailFlag: false,
-    sideFlag: false,
+    sideFlag: false
   }),
   actions: {
     setCollapse(flag: boolean) {
-      this.isCollapse = flag;
+      this.isCollapse = flag
     },
     setLoginFlag(flag: boolean) {
-      this.loginFlag = flag;
+      this.loginFlag = flag
     },
     setRegisterFlag(flag: boolean) {
-      this.registerFlag = flag;
+      this.registerFlag = flag
     },
     setForgetFlag(flag: boolean) {
-      this.forgetFlag = flag;
-    },
+      this.forgetFlag = flag
+    }
   },
   getters: {},
   persist: {
     key: "app",
-    storage: sessionStorage,
-  },
-});
+    storage: sessionStorage
+  }
+})
 
-export default useAppStore;
+export default useAppStore

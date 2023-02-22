@@ -5,15 +5,15 @@ export interface Tag {
   /**
    * 标签id
    */
-  id: number;
+  id: number
   /**
    * 标签名
    */
-  tagName: string;
+  tagName: string
   /**
    * 文章数量
    */
-  articleCount: number;
+  articleCount: number
 }
 
 /**
@@ -23,9 +23,9 @@ export interface TagVO {
   /**
    * 标签id
    */
-  id: number;
+  id: number
   /**
    * 标签名
    */
-  tagName: string;
+  tagName: string
 }

@@ -5,15 +5,15 @@ export interface Category {
   /**
    * 分类id
    */
-  id: number;
+  id: number
   /**
    * 分类名
    */
-  categoryName: string;
+  categoryName: string
   /**
    * 文章数量
    */
-  articleCount: number;
+  articleCount: number
 }
 
 /**
@@ -23,9 +23,9 @@ export interface CategoryVO {
   /**
    * 分类id
    */
-  id: number;
+  id: number
   /**
    * 分类名
    */
-  categoryName: string;
+  categoryName: string
 }

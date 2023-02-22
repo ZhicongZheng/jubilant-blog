@@ -1,15 +1,12 @@
 <template>
-    <div>
-        <Author class="side-card"></Author>
-        <Notice class="side-card"></Notice>
-        <RecentComment class="side-card"></RecentComment>
-        <WebInfo class="side-card"></WebInfo>
-    </div>
+  <div>
+    <Author class="side-card" />
+    <Notice class="side-card" />
+    <RecentComment class="side-card" />
+    <WebInfo class="side-card" />
+  </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

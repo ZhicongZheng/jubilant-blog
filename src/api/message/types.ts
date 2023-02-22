@@ -5,19 +5,19 @@ export interface Message {
   /**
    * 留言id
    */
-  id: number;
+  id: number
   /**
    * 昵称
    */
-  nickname: string;
+  nickname: string
   /**
    * 头像
    */
-  avatar: string;
+  avatar: string
   /**
    * 留言内容
    */
-  messageContent: string;
+  messageContent: string
 }
 
 /**
@@ -27,13 +27,13 @@ export interface MessageForm {
   /**
    * 昵称
    */
-  nickname: string;
+  nickname: string
   /**
    * 头像
    */
-  avatar: string;
+  avatar: string
   /**
    * 留言内容
    */
-  messageContent: string;
+  messageContent: string
 }

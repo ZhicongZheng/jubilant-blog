@@ -1,7 +1,7 @@
-import {Result, UserForm} from "@/model";
-import {AxiosPromise} from "axios";
-import {EmailForm, UserInfo} from "./types";
-import {request as request1} from "@/request/service";
+import { Result, UserForm } from "@/model"
+import { AxiosPromise } from "axios"
+import { EmailForm, UserInfo } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 修改用户密码
@@ -11,8 +11,8 @@ export function updateUserPassword(data: UserForm): AxiosPromise<Result<null>> {
   return request1({
     url: "/user/password",
     method: "put",
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -24,8 +24,8 @@ export function updateUserAvatar(data: FormData): AxiosPromise<Result<string>> {
     url: "/user/avatar",
     method: "post",
     headers: { "content-type": "multipart/form-data" },
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -36,8 +36,8 @@ export function updateUserEmail(data: EmailForm): AxiosPromise<Result<null>> {
   return request1({
     url: "/user/email",
     method: "put",
-    data,
-  });
+    data
+  })
 }
 
 /**
@@ -48,6 +48,6 @@ export function updateUserInfo(data: UserInfo): AxiosPromise<Result<null>> {
   return request1({
     url: "/user/info",
     method: "put",
-    data,
-  });
+    data
+  })
 }

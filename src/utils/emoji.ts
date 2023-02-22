@@ -74,5 +74,5 @@ export default {
   "[原神_喝茶]": "https://static.ttkwsd.top/emoji/hecha.png",
   "[原神_生气]": "https://static.ttkwsd.top/emoji/kqsq.png",
   "[tv_微笑]": "https://static.ttkwsd.top/emoji/tvwx.png",
-  "[tv_斜眼笑]": "https://static.ttkwsd.top/emoji/tvxyx.png",
-};
+  "[tv_斜眼笑]": "https://static.ttkwsd.top/emoji/tvxyx.png"
+}

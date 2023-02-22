@@ -55,4 +55,4 @@ import { request } from "@/request/service"
 // );
 
 // 对外暴露
-export default request;
+export default request

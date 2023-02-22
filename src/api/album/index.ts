@@ -1,7 +1,7 @@
-import {Result} from "@/model";
-import {AxiosPromise} from "axios";
-import {Album, PhotoInfo} from "./types";
-import {request as request1} from "@/request/service";
+import { Result } from "@/model"
+import { AxiosPromise } from "axios"
+import { Album, PhotoInfo } from "./types"
+import { request as request1 } from "@/request/service"
 
 /**
  * 查看相册列表
@@ -10,8 +10,8 @@ import {request as request1} from "@/request/service";
 export function getAlbumList(): AxiosPromise<Result<Album[]>> {
   return request1({
     url: "/album/list",
-    method: "get",
-  });
+    method: "get"
+  })
 }
 
 /**
@@ -24,7 +24,7 @@ export function getPhotoList(albumId: number): AxiosPromise<Result<PhotoInfo>> {
     url: "/photo/list",
     method: "get",
     params: {
-      albumId,
-    },
-  });
+      albumId
+    }
+  })
 }

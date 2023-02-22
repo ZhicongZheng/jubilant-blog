@@ -1,4 +1,4 @@
-import { BlogInfo, SiteConfig } from "@/api/blogInfo/types";
+import { BlogInfo, SiteConfig } from "@/api/blogInfo/types"
 
 const useBlogStore = defineStore("useBlogStore", {
   state: (): BlogInfo => ({
@@ -6,22 +6,22 @@ const useBlogStore = defineStore("useBlogStore", {
     categoryCount: 0,
     tagCount: 0,
     viewCount: 0,
-    siteConfig: {} as SiteConfig,
+    siteConfig: {} as SiteConfig
   }),
   actions: {
     setBlogInfo(blogInfo: BlogInfo) {
-      this.articleCount = blogInfo.articleCount;
-      this.categoryCount = blogInfo.categoryCount;
-      this.tagCount = blogInfo.tagCount;
-      this.viewCount = blogInfo.viewCount;
-      this.siteConfig = blogInfo.siteConfig;
-    },
+      this.articleCount = blogInfo.articleCount
+      this.categoryCount = blogInfo.categoryCount
+      this.tagCount = blogInfo.tagCount
+      this.viewCount = blogInfo.viewCount
+      this.siteConfig = blogInfo.siteConfig
+    }
   },
   getters: {},
   persist: {
-    key:"blog",
-    storage: sessionStorage,
-  },
-});
+    key: "blog",
+    storage: sessionStorage
+  }
+})
 
-export default useBlogStore;
+export default useBlogStore

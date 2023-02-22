@@ -5,107 +5,107 @@ export interface SiteConfig {
   /**
    * 主键
    */
-  id: number;
+  id: number
   /**
    * 用户头像
    */
-  userAvatar: string;
+  userAvatar: string
   /**
    * 游客头像
    */
-  touristAvatar: string;
+  touristAvatar: string
   /**
    * 网站名称
    */
-  siteName: string;
+  siteName: string
   /**
    * 网站地址
    */
-  siteAddress: string;
+  siteAddress: string
   /**
    * 网站简介
    */
-  siteIntro: string;
+  siteIntro: string
   /**
    * 网站公告
    */
-  siteNotice: string;
+  siteNotice: string
   /**
    * 建站日期
    */
-  createSiteTime: string;
+  createSiteTime: string
   /**
    * 备案号
    */
-  recordNumber: string;
+  recordNumber: string
   /**
    * 作者头像
    */
-  authorAvatar: string;
+  authorAvatar: string
   /**
    * 网站作者
    */
-  siteAuthor: string;
+  siteAuthor: string
   /**
    * 关于我
    */
-  aboutMe: string;
+  aboutMe: string
   /**
    * Github
    */
-  github: string;
+  github: string
   /**
    * Gitee
    */
-  gitee: string;
+  gitee: string
   /**
    * 哔哩哔哩
    */
-  bilibili: string;
+  bilibili: string
   /**
    * QQ
    */
-  qq: string;
+  qq: string
   /**
    * 是否评论审核 (0否 1是)
    */
-  commentCheck: number;
+  commentCheck: number
   /**
    * 是否留言审核 (0否 1是)
    */
-  messageCheck: number;
+  messageCheck: number
   /**
    * 是否开启打赏 (0否 1是)
    */
-  isReward: number;
+  isReward: number
   /**
    * 微信二维码
    */
-  weiXinCode: string;
+  weiXinCode: string
   /**
    * 支付宝二维码
    */
-  aliCode: string;
+  aliCode: string
   /**
    * 是否邮箱通知 (0否 1是)
    */
-  emailNotice: number;
+  emailNotice: number
   /**
    * 社交列表
    */
-  socialList: string;
+  socialList: string
   /**
    * 登录方式
    */
-  loginList: string;
+  loginList: string
   /**
    * 是否开启音乐播放器 (0否 1是)
    */
-  isMusic: number;
+  isMusic: number
   /**
    * 网易云歌单id
    */
-  musicId: string;
+  musicId: string
 }
 
 /**
@@ -115,21 +115,21 @@ export interface BlogInfo {
   /**
    * 文章数量
    */
-  articleCount: number;
+  articleCount: number
   /**
    * 分类数量
    */
-  categoryCount: number;
+  categoryCount: number
   /**
    * 标签数量
    */
-  tagCount: number;
+  tagCount: number
   /**
    * 网站访问量
    */
-  viewCount: number;
+  viewCount: number
   /**
    * 网站配置
    */
-  siteConfig: SiteConfig;
+  siteConfig: SiteConfig
 }

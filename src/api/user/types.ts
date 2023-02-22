@@ -5,11 +5,11 @@ export interface EmailForm {
   /**
    * 邮箱号
    */
-  email: string;
+  email: string
   /**
    * 验证码
    */
-  code: string;
+  code: string
 }
 
 /**
@@ -19,13 +19,13 @@ export interface UserInfo {
   /**
    * 昵称
    */
-  nickname: string;
+  nickname: string
   /**
    * 个人网站
    */
-  webSite: string;
+  webSite: string
   /**
    * 个人简介
    */
-  intro: string;
+  intro: string
 }
