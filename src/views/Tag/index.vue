@@ -15,11 +15,11 @@
         <router-link
           :to="`/tag/${tag.id}`"
           class="tag-item"
-          v-for="tag in tagList"
+          v-for="tag in tags"
           :key="tag.id"
           :style="{ 'font-size': getSize(tag.articleCount), color: getRandomColor() }"
         >
-          {{ tag.tagName }}
+          {{ tag.name }}
           <sup>{{ tag.articleCount }}</sup>
         </router-link>
       </div>
@@ -28,8 +28,9 @@
 </template>
 
 <script setup lang="ts">
-import { getTagList } from "@/api/tag"
-import { Tag } from "@/api/tag/types"
+import { ref, onMounted } from "vue"
+import { api } from "@/request/service"
+import { ArticleTagDto } from "@/request/generator"
 const getSize = (freq: number) => {
   return ((1 + (6 * freq) / 10) / 3) * 2 + "rem"
 }
@@ -44,11 +45,10 @@ const getRandomColor = () => {
     ")"
   )
 }
-const tagList = ref<Tag[]>([])
+
+const tags = ref<Array<ArticleTagDto>>([])
 onMounted(() => {
-  getTagList().then(({ data }) => {
-    tagList.value = data.data
-  })
+  api.ArticleTagApi.listTags().then((res) => (tags.value = res.data))
 })
 </script>
 

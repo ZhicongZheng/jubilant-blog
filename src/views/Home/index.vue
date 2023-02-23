@@ -7,9 +7,9 @@
     <div class="main-container mt">
       <div class="left-container" :class="app.sideFlag ? 'test' : ''">
         <!-- 说说 -->
-        <TalkSwiper />
+        <!--        <TalkSwiper />-->
         <!-- 推荐文章 -->
-        <Recommend />
+        <!--        <Recommend />-->
         <!-- 文章列表 -->
         <ArticleItem />
       </div>
@@ -23,8 +23,8 @@ import useStore from "@/store"
 import ArticleItem from "@/views/Article/ArticleItem.vue"
 import Brand from "./Brand/index.vue"
 import Images from "./Swiper/Images.vue"
-import Recommend from "./Swiper/Recommend.vue"
-import TalkSwiper from "./Swiper/TalkSwiper.vue"
+// import Recommend from "./Swiper/Recommend.vue"
+// import TalkSwiper from "./Swiper/TalkSwiper.vue"
 const { app } = useStore()
 </script>
 

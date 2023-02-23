@@ -1,16 +1,16 @@
 <template>
   <div class="page-header" v-if="article">
     <div class="page-title">
-      <h1 class="article-title">{{ article.articleTitle }}</h1>
+      <h1 class="article-title">{{ article.title }}</h1>
       <div class="article-meta">
         <div class="first-meta">
           <span
             ><svg-icon icon-class="calendar" style="margin-right: 0.15rem" /> <span class="text">发表于 </span
-            >{{ formatDate(article.createTime) }}
+            >{{ formatDate(article.createAt) }}
           </span>
-          <span class="item" v-if="article.updateTime"
+          <span class="item" v-if="article.updateAt"
             ><svg-icon icon-class="update" style="margin-right: 0.15rem" /> <span class="text">更新于 </span
-            >{{ formatDate(article.updateTime) }}
+            >{{ formatDate(article.updateAt) }}
           </span>
           <span class="item"
             ><svg-icon icon-class="eye" style="margin-right: 0.15rem" /> <span class="text">阅读量 </span
@@ -20,19 +20,19 @@
         <div class="second-meta">
           <span
             ><svg-icon icon-class="edit" size="0.9rem" style="margin-right: 0.15rem" />
-            <span class="text">字数统计 </span>{{ count(wordNum) }} 字
+            <span class="text">字数统计 </span>{{ wordCount(wordNum) }} 字
           </span>
           <span class="item"
             ><svg-icon icon-class="clock" style="margin-right: 0.15rem" /> <span class="text">阅读时长 </span
             >{{ readTime }} 分钟
           </span>
-          <span class="item">
-            <svg-icon icon-class="category" style="margin-right: 0.15rem" />{{ article.category.categoryName }}
+          <span class="item" v-if="article.category">
+            <svg-icon icon-class="category" style="margin-right: 0.15rem" />{{ article.category.name }}
           </span>
         </div>
       </div>
     </div>
-    <img class="page-cover" :src="article.articleCover" alt="" />
+    <img class="page-cover" :src="article.frontCover" alt="" />
     <!-- 波浪 -->
     <Waves />
   </div>
@@ -40,14 +40,14 @@
     <div class="main-container" v-if="article">
       <div class="left-container" :class="app.sideFlag ? 'test' : ''">
         <div class="article-container">
-          <v-md-preview ref="articleRef" class="md" v-viewer :text="article.articleContent" />
+          <v-md-preview ref="articleContentRef" class="md" v-viewer :text="article.contentMd" />
           <div class="article-post">
             <div class="tag-share">
-              <router-link :to="`/tag/${tag.id}`" class="article-tag" v-for="tag in article.tagVOList" :key="tag.id">
+              <router-link :to="`/tag/${tag.id}`" class="article-tag" v-for="tag in article.tags" :key="tag.id">
                 <svg-icon icon-class="tag" size="0.8rem" />
-                {{ tag.tagName }}
+                {{ tag.name }}
               </router-link>
-              <Share class="share-info" :url="articleHref" :title="article.articleTitle" />
+              <Share class="share-info" :url="articleHref" :title="article.title" />
             </div>
             <div class="reward">
               <button class="btn" :class="isLike(article.id)" @click="like">
@@ -96,35 +96,35 @@
               </ul>
             </div>
             <!-- 上下文 -->
-            <div class="post-nav">
-              <div class="item" v-if="article.lastArticle">
-                <router-link
-                  :to="`/article/${article.lastArticle?.id}`"
-                  class="post-cover"
-                  :style="articleCover(article.lastArticle.articleCover)"
-                >
-                  <span class="post-last-next">上一篇</span>
-                  <h3 class="post-title">{{ article.lastArticle.articleTitle }}</h3>
-                </router-link>
-              </div>
-              <div class="item" v-if="article.nextArticle">
-                <router-link
-                  :to="`/article/${article.nextArticle?.id}`"
-                  class="post-cover"
-                  :style="articleCover(article.nextArticle.articleCover)"
-                >
-                  <span class="post-last-next">下一篇</span>
-                  <h3 class="post-title">{{ article.nextArticle.articleTitle }}</h3>
-                </router-link>
-              </div>
-            </div>
+            <!--            <div class="post-nav">-->
+            <!--              <div class="item" v-if="article.lastArticle">-->
+            <!--                <router-link-->
+            <!--                  :to="`/article/${article.lastArticle?.id}`"-->
+            <!--                  class="post-cover"-->
+            <!--                  :style="articleCover(article.lastArticle.articleCover)"-->
+            <!--                >-->
+            <!--                  <span class="post-last-next">上一篇</span>-->
+            <!--                  <h3 class="post-title">{{ article.lastArticle.articleTitle }}</h3>-->
+            <!--                </router-link>-->
+            <!--              </div>-->
+            <!--              <div class="item" v-if="article.nextArticle">-->
+            <!--                <router-link-->
+            <!--                  :to="`/article/${article.nextArticle?.id}`"-->
+            <!--                  class="post-cover"-->
+            <!--                  :style="articleCover(article.nextArticle.articleCover)"-->
+            <!--                >-->
+            <!--                  <span class="post-last-next">下一篇</span>-->
+            <!--                  <h3 class="post-title">{{ article.nextArticle.articleTitle }}</h3>-->
+            <!--                </router-link>-->
+            <!--              </div>-->
+            <!--            </div>-->
             <CommentList :comment-type="commentType" />
           </div>
         </div>
       </div>
       <div class="right-container" :class="app.sideFlag ? 'temp' : ''">
         <div class="side-card">
-          <Catalog v-if="articleLoaded" :domRef="articleRef" />
+          <Catalog v-if="articleLoaded" :domRef="articleContentRef" />
         </div>
       </div>
     </div>
@@ -134,42 +134,29 @@
 <script setup lang="ts">
 import { toRefs, ref, reactive, onMounted, computed } from "vue"
 import { useRoute } from "vue-router"
-import { getArticle, likeArticle } from "@/api/article"
-import { ArticleInfo, ArticlePagination } from "@/api/article/types"
-import { CategoryVO } from "@/api/category/types"
 import useStore from "@/store"
 import { formatDate } from "@/utils/date"
 import { Share } from "vue3-social-share"
 import "vue3-social-share/lib/index.css"
+import { api } from "@/request/service"
+import { ArticleDto } from "@/request/generator"
 const { app, blog, user } = useStore()
-const articleRef = ref()
+const articleContentRef = ref()
+const article = ref<ArticleDto>()
 const route = useRoute()
 const articleHref = window.location.href
 const data = reactive({
   articleLoaded: false,
   wordNum: 0,
   readTime: 0,
-  commentType: 1,
-  article: {
-    id: 0,
-    articleCover: "",
-    articleTitle: "",
-    articleContent: "",
-    articleType: 0,
-    viewCount: 0,
-    likeCount: 0,
-    category: {} as CategoryVO,
-    tagVOList: [],
-    createTime: "",
-    lastArticle: {} as ArticlePagination,
-    nextArticle: {} as ArticlePagination,
-    updateTime: ""
-  } as ArticleInfo
+  commentType: 1
 })
-const { articleLoaded, wordNum, readTime, commentType, article } = toRefs(data)
-const articleCover = computed(() => (cover: string) => "background-image:url(" + cover + ")")
+
+const { articleLoaded, wordNum, readTime, commentType } = toRefs(data)
+// const articleCover = computed(() => (cover: string) => "background-image:url(" + cover + ")")
 const isLike = computed(() => (id: number) => user.articleLikeSet.indexOf(id) != -1 ? "like-btn-active" : "like-btn")
-const count = (value: number) => {
+
+const wordCount = (value: number) => {
   if (value >= 1000) {
     return (value / 1000).toFixed(1) + "k"
   }
@@ -186,24 +173,24 @@ const like = () => {
     app.setLoginFlag(true)
     return
   }
-  const id = article.value.id
-  likeArticle(id).then(({ data }) => {
-    if (data.flag) {
-      //判断是否点赞
-      if (user.articleLikeSet.indexOf(id) != -1) {
-        article.value.likeCount -= 1
-      } else {
-        article.value.likeCount += 1
-      }
-      user.articleLike(id)
-    }
-  })
+  // const id = article.value.id
+  // likeArticle(id).then(({ data }) => {
+  //   if (data.flag) {
+  //     //判断是否点赞
+  //     if (user.articleLikeSet.indexOf(id) != -1) {
+  //       article.value.likeCount -= 1
+  //     } else {
+  //       article.value.likeCount += 1
+  //     }
+  //     user.articleLike(id)
+  //   }
+  // })
 }
 onMounted(() => {
-  getArticle(Number(route.params.id)).then(({ data }) => {
-    article.value = data.data
-    document.title = article.value.articleTitle
-    wordNum.value = deleteHTMLTag(article.value.articleContent).length
+  api.ArticleApi.getArticle(Number(route.params.id)).then((res) => {
+    article.value = res.data
+    document.title = article.value.title
+    wordNum.value = deleteHTMLTag(article.value?.contentMd).length
     readTime.value = Math.round(wordNum.value / 400)
     articleLoaded.value = true
   })

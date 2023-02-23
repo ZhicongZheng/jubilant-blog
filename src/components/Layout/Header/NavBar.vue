@@ -22,40 +22,40 @@
         </li>
       </ul>
     </div>
-    <div class="menu-item dropdown">
-      <a class="menu-btn drop"> <svg-icon icon-class="fun" /> 娱乐 </a>
-      <ul class="submenu">
-        <li class="subitem" :class="{ active: route.meta.title === '说说' }">
-          <router-link class="link" to="/talk"> <svg-icon icon-class="talk" /> 说说 </router-link>
-        </li>
-        <li class="subitem" :class="{ active: route.meta.title === '相册' }">
-          <router-link class="link" to="/album"> <svg-icon icon-class="album" /> 相册 </router-link>
-        </li>
-      </ul>
-    </div>
-    <div class="menu-item" :class="{ active: route.meta.title === '友链' }">
-      <router-link to="/friend" class="menu-btn"> <svg-icon icon-class="friend" /> 友链 </router-link>
-    </div>
+    <!--    <div class="menu-item dropdown">-->
+    <!--      <a class="menu-btn drop"> <svg-icon icon-class="fun" /> 娱乐 </a>-->
+    <!--      <ul class="submenu">-->
+    <!--        <li class="subitem" :class="{ active: route.meta.title === '说说' }">-->
+    <!--          <router-link class="link" to="/talk"> <svg-icon icon-class="talk" /> 说说 </router-link>-->
+    <!--        </li>-->
+    <!--        <li class="subitem" :class="{ active: route.meta.title === '相册' }">-->
+    <!--          <router-link class="link" to="/album"> <svg-icon icon-class="album" /> 相册 </router-link>-->
+    <!--        </li>-->
+    <!--      </ul>-->
+    <!--    </div>-->
+    <!--    <div class="menu-item" :class="{ active: route.meta.title === '友链' }">-->
+    <!--      <router-link to="/friend" class="menu-btn"> <svg-icon icon-class="friend" /> 友链 </router-link>-->
+    <!--    </div>-->
     <div class="menu-item" :class="{ active: route.meta.title === '留言' }">
       <router-link to="/message" class="menu-btn"> <svg-icon icon-class="message" /> 留言板 </router-link>
     </div>
     <div class="menu-item" :class="{ active: route.meta.title === '关于' }">
       <router-link to="/about" class="menu-btn"> <svg-icon icon-class="plane" /> 关于 </router-link>
     </div>
-    <div class="menu-item">
-      <a v-if="!user.id" @click="app.loginFlag = true" class="menu-btn"> <svg-icon icon-class="user" /> 登录 </a>
-      <template v-else>
-        <img class="user-avatar drop" :src="user.avatar" />
-        <ul class="submenu">
-          <li class="subitem" :class="{ active: route.meta.title === '个人中心' }">
-            <router-link to="/user" class="link"> <svg-icon icon-class="author" /> 个人中心 </router-link>
-          </li>
-          <li class="subitem">
-            <a class="link" @click="logout"><svg-icon icon-class="logout" /> 退出 </a>
-          </li>
-        </ul>
-      </template>
-    </div>
+    <!--    <div class="menu-item">-->
+    <!--      <a v-if="!user.id" @click="app.loginFlag = true" class="menu-btn"> <svg-icon icon-class="user" /> 登录 </a>-->
+    <!--      <template v-else>-->
+    <!--        <img class="user-avatar drop" :src="user.avatar" />-->
+    <!--        <ul class="submenu">-->
+    <!--          <li class="subitem" :class="{ active: route.meta.title === '个人中心' }">-->
+    <!--            <router-link to="/user" class="link"> <svg-icon icon-class="author" /> 个人中心 </router-link>-->
+    <!--          </li>-->
+    <!--          <li class="subitem">-->
+    <!--            <a class="link" @click="logout"><svg-icon icon-class="logout" /> 退出 </a>-->
+    <!--          </li>-->
+    <!--        </ul>-->
+    <!--      </template>-->
+    <!--    </div>-->
   </div>
 </template>
 

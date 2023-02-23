@@ -30,13 +30,13 @@ const routes: RouteRecordRaw[] = [
     path: "/tag/:tagId",
     component: () => import("@/views/Tag/ArticleList.vue")
   },
-  {
-    path: "/friend",
-    component: () => import("@/views/Friend/index.vue"),
-    meta: {
-      title: "友链"
-    }
-  },
+  // {
+  //   path: "/friend",
+  //   component: () => import("@/views/Friend/index.vue"),
+  //   meta: {
+  //     title: "友链"
+  //   }
+  // },
   {
     path: "/archive",
     component: () => import("@/views/Archive/index.vue"),
@@ -65,31 +65,31 @@ const routes: RouteRecordRaw[] = [
       title: "标签"
     }
   },
-  {
-    path: "/album",
-    component: () => import("@/views/Album/Album.vue"),
-    meta: {
-      title: "相册"
-    }
-  },
-  {
-    path: "/album/:albumId",
-    component: () => import("@/views/Album/Photo.vue")
-  },
-  {
-    path: "/talk",
-    component: () => import("@/views/Talk/TalkList.vue"),
-    meta: {
-      title: "说说"
-    }
-  },
-  {
-    path: "/talk/:id",
-    component: () => import("@/views/Talk/Talk.vue"),
-    meta: {
-      title: "说说"
-    }
-  },
+  // {
+  //   path: "/album",
+  //   component: () => import("@/views/Album/Album.vue"),
+  //   meta: {
+  //     title: "相册"
+  //   }
+  // },
+  // {
+  //   path: "/album/:albumId",
+  //   component: () => import("@/views/Album/Photo.vue")
+  // },
+  // {
+  //   path: "/talk",
+  //   component: () => import("@/views/Talk/TalkList.vue"),
+  //   meta: {
+  //     title: "说说"
+  //   }
+  // },
+  // {
+  //   path: "/talk/:id",
+  //   component: () => import("@/views/Talk/Talk.vue"),
+  //   meta: {
+  //     title: "说说"
+  //   }
+  // },
   {
     path: "/article/:id",
     component: () => import("@/views/Article/Article.vue"),
@@ -104,14 +104,14 @@ const routes: RouteRecordRaw[] = [
       title: "404"
     }
   },
-  {
-    path: "/oauth/login/gitee",
-    component: () => import("@/components/Oauth/index.vue")
-  },
-  {
-    path: "/oauth/login/github",
-    component: () => import("@/components/Oauth/index.vue")
-  },
+  // {
+  //   path: "/oauth/login/gitee",
+  //   component: () => import("@/components/Oauth/index.vue")
+  // },
+  // {
+  //   path: "/oauth/login/github",
+  //   component: () => import("@/components/Oauth/index.vue")
+  // },
   { path: "/:catchAll(.*)", redirect: "/404" }
 ]
 

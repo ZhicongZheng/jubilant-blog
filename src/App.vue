@@ -25,19 +25,26 @@
 <script setup lang="ts">
 import { onMounted } from "vue"
 import useStore from "@/store"
-import { getBlogInfo, report } from "@/api/blogInfo"
+import { api } from "@/request/service"
+
 const { blog } = useStore()
+
 onMounted(() => {
   console.log(
-    "%c Hello World %c By 阿冬 %c",
+    "%c Hello World %c By ZhengZhiCong %c",
     "background:#e9546b ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff; padding:5px 0;",
     "background:#ec8c69 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #000; padding:5px 0;",
     "background:transparent"
   )
-  getBlogInfo().then(({ data }) => {
-    blog.setBlogInfo(data.data)
+  api.SiteApi.getSiteInfo().then((res) => {
+    blog.setBlogInfo(res.data)
   })
-  report()
+
+  api.SiteApi.onAction({
+    typ: 1,
+    resourceId: -1,
+    resourceInfo: "/"
+  })
 })
 </script>
 

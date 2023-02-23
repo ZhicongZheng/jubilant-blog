@@ -22,6 +22,37 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface ActionCommand
+ */
+export interface ActionCommand {
+    /**
+     * 
+     * @type {number}
+     * @memberof ActionCommand
+     */
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActionCommand
+     */
+    typ: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ActionCommand
+     */
+    resourceId: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ActionCommand
+     */
+    resourceInfo: string;
+}
+/**
+ * 
+ * @export
  * @interface ArticleCategory
  */
 export interface ArticleCategory {
@@ -730,6 +761,98 @@ export interface RoleDto {
 /**
  * 
  * @export
+ * @interface SiteConfig
+ */
+export interface SiteConfig {
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    siteName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    siteAddress: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    siteIntro: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    siteNotice: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    createSiteTime: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    recordNumber: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    siteAuthor: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    aboutMe: string;
+}
+/**
+ * 
+ * @export
+ * @interface SiteInfoDto
+ */
+export interface SiteInfoDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof SiteInfoDto
+     */
+    articleCount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SiteInfoDto
+     */
+    categoryCount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SiteInfoDto
+     */
+    tagCount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof SiteInfoDto
+     */
+    viewCount: number;
+    /**
+     * 
+     * @type {SiteConfig}
+     * @memberof SiteInfoDto
+     */
+    siteConfig: SiteConfig;
+}
+/**
+ * 
+ * @export
  * @interface UpdateRoleCommand
  */
 export interface UpdateRoleCommand {
@@ -1035,6 +1158,51 @@ export const ArticleApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * 点赞文章
+         * @summary 点赞文章
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        likeArticle: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling likeArticle.');
+            }
+            const localVarPath = `/articles/like/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication apiKeyAuth required
+
+
+    
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 分页获取文章列表
          * @summary 分页获取文章
          * @param {number} [page] 
@@ -1246,6 +1414,20 @@ export const ArticleApiFp = function(configuration?: Configuration) {
             };
         },
         /**
+         * 点赞文章
+         * @summary 点赞文章
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async likeArticle(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await ArticleApiAxiosParamCreator(configuration).likeArticle(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 分页获取文章列表
          * @summary 分页获取文章
          * @param {number} [page] 
@@ -1331,6 +1513,16 @@ export const ArticleApiFactory = function (configuration?: Configuration, basePa
             return ArticleApiFp(configuration).getArticle(id, options).then((request) => request(axios, basePath));
         },
         /**
+         * 点赞文章
+         * @summary 点赞文章
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        likeArticle(id: number, options?: any): AxiosPromise<void> {
+            return ArticleApiFp(configuration).likeArticle(id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * 分页获取文章列表
          * @summary 分页获取文章
          * @param {number} [page] 
@@ -1408,6 +1600,18 @@ export class ArticleApi extends BaseAPI {
      */
     public getArticle(id: number, options?: any) {
         return ArticleApiFp(this.configuration).getArticle(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 点赞文章
+     * @summary 点赞文章
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArticleApi
+     */
+    public likeArticle(id: number, options?: any) {
+        return ArticleApiFp(this.configuration).likeArticle(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2668,6 +2872,199 @@ export class RolesApi extends BaseAPI {
      */
     public updateRole(updateRoleCommand: UpdateRoleCommand, options?: any) {
         return RolesApiFp(this.configuration).updateRole(updateRoleCommand, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SiteInfoAPIApi - axios parameter creator
+ * @export
+ */
+export const SiteInfoAPIApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 获取网站基本信息
+         * @summary 获取网站信息
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSiteInfo: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/site`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 采集用户数据
+         * @summary 采集用户数据
+         * @param {ActionCommand} actionCommand 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onAction: async (actionCommand: ActionCommand, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'actionCommand' is not null or undefined
+            if (actionCommand === null || actionCommand === undefined) {
+                throw new RequiredError('actionCommand','Required parameter actionCommand was null or undefined when calling onAction.');
+            }
+            const localVarPath = `/actions`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const nonString = typeof actionCommand !== 'string';
+            const needsSerialization = nonString && configuration && configuration.isJsonMime
+                ? configuration.isJsonMime(localVarRequestOptions.headers['Content-Type'])
+                : nonString;
+            localVarRequestOptions.data =  needsSerialization
+                ? JSON.stringify(actionCommand !== undefined ? actionCommand : {})
+                : (actionCommand || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SiteInfoAPIApi - functional programming interface
+ * @export
+ */
+export const SiteInfoAPIApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 获取网站基本信息
+         * @summary 获取网站信息
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSiteInfo(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SiteInfoDto>> {
+            const localVarAxiosArgs = await SiteInfoAPIApiAxiosParamCreator(configuration).getSiteInfo(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 采集用户数据
+         * @summary 采集用户数据
+         * @param {ActionCommand} actionCommand 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async onAction(actionCommand: ActionCommand, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await SiteInfoAPIApiAxiosParamCreator(configuration).onAction(actionCommand, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
+};
+
+/**
+ * SiteInfoAPIApi - factory interface
+ * @export
+ */
+export const SiteInfoAPIApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    return {
+        /**
+         * 获取网站基本信息
+         * @summary 获取网站信息
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSiteInfo(options?: any): AxiosPromise<SiteInfoDto> {
+            return SiteInfoAPIApiFp(configuration).getSiteInfo(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 采集用户数据
+         * @summary 采集用户数据
+         * @param {ActionCommand} actionCommand 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        onAction(actionCommand: ActionCommand, options?: any): AxiosPromise<void> {
+            return SiteInfoAPIApiFp(configuration).onAction(actionCommand, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SiteInfoAPIApi - object-oriented interface
+ * @export
+ * @class SiteInfoAPIApi
+ * @extends {BaseAPI}
+ */
+export class SiteInfoAPIApi extends BaseAPI {
+    /**
+     * 获取网站基本信息
+     * @summary 获取网站信息
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SiteInfoAPIApi
+     */
+    public getSiteInfo(options?: any) {
+        return SiteInfoAPIApiFp(this.configuration).getSiteInfo(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 采集用户数据
+     * @summary 采集用户数据
+     * @param {ActionCommand} actionCommand 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SiteInfoAPIApi
+     */
+    public onAction(actionCommand: ActionCommand, options?: any) {
+        return SiteInfoAPIApiFp(this.configuration).onAction(actionCommand, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

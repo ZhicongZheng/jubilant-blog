@@ -3,7 +3,7 @@
     <!-- 文章缩略图 -->
     <div class="article-cover">
       <router-link :to="`/article/${article.id}`" href="">
-        <img class="cover" v-lazy="article.articleCover" />
+        <img class="cover" v-lazy="article.frontCover" />
       </router-link>
     </div>
     <!-- 文章信息 -->
@@ -16,7 +16,7 @@
         <!-- 发表时间 -->
         <span class="meta-item ml">
           <svg-icon icon-class="calendar" size="0.9rem" style="margin-right: 0.15rem" />{{
-            formatDate(article.createTime)
+            formatDate(article.createAt)
           }}
         </span>
         <!-- 文章标签 -->
@@ -31,11 +31,11 @@
         </router-link>
       </h3>
       <!-- 文章内容 -->
-      <div class="article-content">{{ article.articleContent }}</div>
+      <div class="article-content">{{ article.contentMd }}</div>
       <!-- 文章分类 -->
-      <div class="article-category">
+      <div class="article-category" v-if="article.category">
         <svg-icon icon-class="qizhi" size="0.85rem" style="margin-right: 0.15rem" />
-        <router-link :to="`/category/${article.category.id}`">{{ article.category.categoryName }}</router-link>
+        <router-link :to="`/category/${article.category.id}`">{{ article.category.name }}</router-link>
       </div>
       <!-- 阅读按钮 -->
       <router-link class="article-btn" :to="`/article/${article.id}`">more...</router-link>
@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 import { toRefs, reactive, onMounted, watch } from "vue"
-import { getArticleList } from "@/api/article"
 import { Article } from "@/api/article/types"
 import { PageQuery } from "@/model"
 import { formatDate } from "@/utils/date"
@@ -61,22 +60,18 @@ const data = reactive({
   articleList: [] as Article[],
   articleDtos: [] as ArticleDto[]
 })
-const { count, queryParams, articleList, articleDtos } = toRefs(data)
+const { count, queryParams, articleDtos } = toRefs(data)
+const fetchArticleList = () => {
+  api.ArticleApi.listArticleByPage(queryParams.value.current, queryParams.value.size).then((res) => {
+    articleDtos.value = res.data.data!
+    count.value = res.data.totalCount
+  })
+}
 watch(
   () => queryParams.value.current,
-  () => {
-    api.ArticleApi.listArticleByPage(queryParams.value.current, queryParams.value.size).then((res) => {
-      articleDtos.value = res.data.data!
-      count.value = res.data.totalCount
-    })
-  }
+  () => fetchArticleList()
 )
-onMounted(() => {
-  getArticleList(queryParams.value).then(({ data }) => {
-    articleList.value = data.data.recordList
-    count.value = data.data.count
-  })
-})
+onMounted(() => fetchArticleList())
 </script>
 
 <style lang="scss" scoped>

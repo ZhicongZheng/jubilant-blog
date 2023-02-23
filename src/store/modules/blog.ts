@@ -1,7 +1,7 @@
-import { BlogInfo, SiteConfig } from "@/api/blogInfo/types"
+import { SiteConfig, SiteInfoDto } from "@/request/generator"
 
 const useBlogStore = defineStore("useBlogStore", {
-  state: (): BlogInfo => ({
+  state: (): SiteInfoDto => ({
     articleCount: 0,
     categoryCount: 0,
     tagCount: 0,
@@ -9,12 +9,12 @@ const useBlogStore = defineStore("useBlogStore", {
     siteConfig: {} as SiteConfig
   }),
   actions: {
-    setBlogInfo(blogInfo: BlogInfo) {
-      this.articleCount = blogInfo.articleCount
-      this.categoryCount = blogInfo.categoryCount
-      this.tagCount = blogInfo.tagCount
-      this.viewCount = blogInfo.viewCount
-      this.siteConfig = blogInfo.siteConfig
+    setBlogInfo(siteInfo: SiteInfoDto) {
+      this.articleCount = siteInfo.articleCount
+      this.categoryCount = siteInfo.categoryCount
+      this.tagCount = siteInfo.tagCount
+      this.viewCount = siteInfo.viewCount
+      this.siteConfig = siteInfo.siteConfig
     }
   },
   getters: {},

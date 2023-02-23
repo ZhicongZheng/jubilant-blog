@@ -110,13 +110,16 @@
 </template>
 
 <script setup lang="ts">
+import { computed, watchEffect } from "vue"
+import { useRoute, useRouter } from "vue-router"
 import useStore from "@/store"
 import { useWindowSize } from "@vueuse/core"
 const route = useRoute()
 const router = useRouter()
 const { app, blog, user } = useStore()
 const { width } = useWindowSize()
-const isShowSocial = computed(() => (social: string) => blog.siteConfig.socialList.split(",").includes(social))
+// const isShowSocial = computed(() => (social: string) => blog.siteConfig.socialList.split(",").includes(social))
+const isShowSocial = computed(() => (social: string) => social.length > 0)
 const article = ["归档", "分类", "标签"]
 const fun = ["说说", "相册"]
 const articleExpand = computed(() => (value: string) => article.includes(value))

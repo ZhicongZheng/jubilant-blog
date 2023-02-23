@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue"
+import { useRoute } from "vue-router"
 import useStore from "@/store"
 import { formatDate } from "@/utils/date"
 const route = useRoute()

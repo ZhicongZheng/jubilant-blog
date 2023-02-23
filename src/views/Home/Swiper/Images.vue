@@ -3,7 +3,7 @@
     <ul>
       <li
         class="item"
-        style="background-image: url('https://static.ttkwsd.top/articles/84aae58f4246f8419cf018d7d7f6bae8.jpg')"
+        style="background-image: url('@/assets/images/background/84aae58f4246f8419cf018d7d7f6bae8.jpg')"
       />
       <li
         class="item"
@@ -25,10 +25,14 @@
         class="item"
         style="background-image: url('https://static.ttkwsd.top/articles/379ce4b2ddf4b087441c196fbffa2f3b.jpg')"
       />
-      <!-- <li class="item" v-for="(image, index) in imageList" :key="index" :style="{
-                'background-image': 'url(' + image + ')'
-            }">
-            </li> -->
+      <li
+        class="item"
+        v-for="(image, index) in imageList"
+        :key="index"
+        :style="{
+          'background-image': 'url(' + image + ')'
+        }"
+      />
     </ul>
   </div>
 </template>

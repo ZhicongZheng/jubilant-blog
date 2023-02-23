@@ -11,6 +11,8 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from "vue-router"
+import { ref, reactive } from "vue"
 import useStore from "@/store"
 import { useEventListener, useScroll } from "@vueuse/core"
 const route = useRoute()

@@ -58,8 +58,10 @@
 
 <script setup lang="ts">
 import useStore from "@/store"
+import { computed } from "vue"
 const { blog } = useStore()
-const isShowSocial = computed(() => (social: string) => blog.siteConfig.socialList.includes(social))
+// const isShowSocial = computed(() => (social: string) => blog.siteConfig.socialList.includes(social))
+const isShowSocial = computed(() => (social: string) => social.length > 0)
 </script>
 
 <style scoped></style>

@@ -33,11 +33,11 @@
 
 <script setup lang="ts">
 import { toRefs, reactive, onMounted } from "vue"
-import { getArchivesList } from "@/api/archives"
 import { Archives } from "@/api/archives/types"
 import Pagination from "@/components/Pagination/index.vue"
 import { PageQuery } from "@/model"
 import { formatDate } from "@/utils/date"
+import { api } from "@/request/service"
 
 const data = reactive({
   count: 0,
@@ -49,9 +49,19 @@ const data = reactive({
 })
 const { count, queryParams, archivesList } = toRefs(data)
 onMounted(() => {
-  getArchivesList(queryParams.value).then(({ data }) => {
-    archivesList.value = data.data.recordList
-    count.value = data.data.count
+  api.ArticleApi.listArticleByPage(queryParams.value.current, queryParams.value.size).then((res) => {
+    const articleList = res.data.data
+    if (articleList) {
+      archivesList.value = articleList.map((article) => {
+        return {
+          id: article.id,
+          articleTitle: article.title,
+          articleCover: article.frontCover!,
+          createTime: article.createAt
+        }
+      })
+    }
+    count.value = res.data.totalCount
   })
 })
 </script>

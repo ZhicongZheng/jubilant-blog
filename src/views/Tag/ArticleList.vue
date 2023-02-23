@@ -11,26 +11,24 @@
   <div class="bg">
     <div class="page-container">
       <n-grid x-gap="15" y-gap="15" cols="1 s:2 m:3" responsive="screen">
-        <n-grid-item class="article-item" v-for="article of articleList" :key="article.id">
+        <n-grid-item class="article-item" v-for="article of articles" :key="article.id">
           <div class="article-cover">
-            <router-link :to="`/article/${article.id}`"
-              ><img class="cover" v-lazy="article.articleCover"
-            /></router-link>
+            <router-link :to="`/article/${article.id}`"><img class="cover" v-lazy="article.frontCover" /></router-link>
           </div>
           <div class="article-info">
             <div class="article-title">
-              <router-link :to="`/article/${article.id}`">{{ article.articleTitle }}</router-link>
+              <router-link :to="`/article/${article.id}`">{{ article.title }}</router-link>
             </div>
             <div class="article-meta">
-              <span><svg-icon icon-class="calendar" size="0.95rem" /> {{ formatDate(article.createTime) }}</span>
+              <span><svg-icon icon-class="calendar" size="0.95rem" /> {{ formatDate(article.createAt) }}</span>
               <router-link :to="`/category/${article.category.id}`"
-                ><svg-icon icon-class="qizhi" size="0.9rem" />{{ article.category.categoryName }}</router-link
+                ><svg-icon icon-class="qizhi" size="0.9rem" />{{ article.category.name }}</router-link
               >
             </div>
             <div class="tag-info">
-              <router-link :to="`/tag/${tag.id}`" class="article-tag" v-for="tag in article.tagVOList" :key="tag.id">
+              <router-link :to="`/tag/${tag.id}`" class="article-tag" v-for="tag in article.tags" :key="tag.id">
                 <svg-icon icon-class="tag" size="0.8rem" />
-                {{ tag.tagName }}
+                {{ tag.name }}
               </router-link>
             </div>
           </div>
@@ -43,25 +41,35 @@
 <script setup lang="ts">
 import { toRefs, reactive, onMounted } from "vue"
 import { useRoute } from "vue-router"
-import { ArticleCondition, ArticleQuery } from "@/api/article/types"
-import { getTagArticleList } from "@/api/tag"
 import { formatDate } from "@/utils/date"
+import { api } from "@/request/service"
+import { ArticleDto } from "@/request/generator"
+
 const route = useRoute()
 const data = reactive({
   queryParams: {
     current: 1,
     size: 5,
     tagId: Number(route.params.tagId)
-  } as ArticleQuery,
+  },
   name: "",
-  articleList: [] as ArticleCondition[]
+  articles: [] as Array<ArticleDto>
 })
-const { queryParams, name, articleList } = toRefs(data)
+const { queryParams, name, articles } = toRefs(data)
+
 onMounted(() => {
-  getTagArticleList(queryParams.value).then(({ data }) => {
-    articleList.value = data.data.articleConditionVOList
-    name.value = data.data.name
-  })
+  api.ArticleApi.listArticleByPage(queryParams.value.current, queryParams.value.size, queryParams.value.tagId).then(
+    (res) => {
+      const pageResult = res.data
+      if (pageResult.data) {
+        articles.value = pageResult.data
+        const tagName = pageResult.data.flatMap((article) => article.tags?.map((tag) => tag.name)).pop()
+        if (tagName) {
+          name.value = tagName
+        }
+      }
+    }
+  )
 })
 </script>
 
