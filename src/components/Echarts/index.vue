@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch, onMounted } from "vue"
 import { useResizeObserver } from "@vueuse/core"
 import * as echarts from "echarts"
 const chartDom = ref<HTMLElement>()

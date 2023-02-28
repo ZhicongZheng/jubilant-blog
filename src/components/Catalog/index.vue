@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from "vue"
 import { useScroll, watchThrottled } from "@vueuse/core"
 
 const titleList = ref<any>([])

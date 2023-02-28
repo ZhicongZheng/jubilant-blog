@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, computed, toRefs } from "vue"
 import { addComment } from "@/api/comment"
 import { CommentForm } from "@/api/comment/types"
 import useStore from "@/store"

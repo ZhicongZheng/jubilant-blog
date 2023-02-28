@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from "vue"
 import useStore from "@/store"
 import { useDark, useScroll } from "@vueuse/core"
 import { useToggle } from "@vueuse/shared"

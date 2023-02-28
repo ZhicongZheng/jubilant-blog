@@ -60,8 +60,9 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from "vue-router"
 import useStore from "@/store"
-const { user, app, blog } = useStore()
+const { user, blog } = useStore()
 const router = useRouter()
 const route = useRoute()
 const logout = () => {

@@ -88,6 +88,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref, reactive, toRefs, onMounted, watch, nextTick } from "vue"
+import { useRoute } from "vue-router"
 import { getCommentList, getReplyList, likeComment } from "@/api/comment"
 import { Comment, CommentQuery, Reply } from "@/api/comment/types"
 import useStore from "@/store"
