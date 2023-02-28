@@ -491,6 +491,12 @@ export interface CommentDto {
      * @type {number}
      * @memberof CommentDto
      */
+    replyCount: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CommentDto
+     */
     replyTo: number;
     /**
      * 
@@ -2597,13 +2603,75 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 分页获取评论列表
          * @summary 分页获取评论列表
+         * @param {number} resourceId 
          * @param {number} [page] 
          * @param {number} [size] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCommentByPage: async (page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+        listCommentByPage: async (resourceId: number, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'resourceId' is not null or undefined
+            if (resourceId === null || resourceId === undefined) {
+                throw new RequiredError('resourceId','Required parameter resourceId was null or undefined when calling listCommentByPage.');
+            }
             const localVarPath = `/comments`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (resourceId !== undefined) {
+                localVarQueryParameter['resourceId'] = resourceId;
+            }
+
+
+    
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 分页获取评论回复列表
+         * @summary 分页获取评论回复列表
+         * @param {number} parent 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listReplyByPage: async (parent: number, page?: number, size?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'parent' is not null or undefined
+            if (parent === null || parent === undefined) {
+                throw new RequiredError('parent','Required parameter parent was null or undefined when calling listReplyByPage.');
+            }
+            const localVarPath = `/comments/{parent}/replies`
+                .replace(`{${"parent"}}`, encodeURIComponent(String(parent)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -2681,13 +2749,30 @@ export const CommentsApiFp = function(configuration?: Configuration) {
         /**
          * 分页获取评论列表
          * @summary 分页获取评论列表
+         * @param {number} resourceId 
          * @param {number} [page] 
          * @param {number} [size] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCommentByPage(page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageCommentDto>> {
-            const localVarAxiosArgs = await CommentsApiAxiosParamCreator(configuration).listCommentByPage(page, size, options);
+        async listCommentByPage(resourceId: number, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageCommentDto>> {
+            const localVarAxiosArgs = await CommentsApiAxiosParamCreator(configuration).listCommentByPage(resourceId, page, size, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 分页获取评论回复列表
+         * @summary 分页获取评论回复列表
+         * @param {number} parent 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listReplyByPage(parent: number, page?: number, size?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageCommentDto>> {
+            const localVarAxiosArgs = await CommentsApiAxiosParamCreator(configuration).listReplyByPage(parent, page, size, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -2725,13 +2810,26 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
         /**
          * 分页获取评论列表
          * @summary 分页获取评论列表
+         * @param {number} resourceId 
          * @param {number} [page] 
          * @param {number} [size] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listCommentByPage(page?: number, size?: number, options?: any): AxiosPromise<PageCommentDto> {
-            return CommentsApiFp(configuration).listCommentByPage(page, size, options).then((request) => request(axios, basePath));
+        listCommentByPage(resourceId: number, page?: number, size?: number, options?: any): AxiosPromise<PageCommentDto> {
+            return CommentsApiFp(configuration).listCommentByPage(resourceId, page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 分页获取评论回复列表
+         * @summary 分页获取评论回复列表
+         * @param {number} parent 
+         * @param {number} [page] 
+         * @param {number} [size] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listReplyByPage(parent: number, page?: number, size?: number, options?: any): AxiosPromise<PageCommentDto> {
+            return CommentsApiFp(configuration).listReplyByPage(parent, page, size, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2770,14 +2868,29 @@ export class CommentsApi extends BaseAPI {
     /**
      * 分页获取评论列表
      * @summary 分页获取评论列表
+     * @param {number} resourceId 
      * @param {number} [page] 
      * @param {number} [size] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CommentsApi
      */
-    public listCommentByPage(page?: number, size?: number, options?: any) {
-        return CommentsApiFp(this.configuration).listCommentByPage(page, size, options).then((request) => request(this.axios, this.basePath));
+    public listCommentByPage(resourceId: number, page?: number, size?: number, options?: any) {
+        return CommentsApiFp(this.configuration).listCommentByPage(resourceId, page, size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 分页获取评论回复列表
+     * @summary 分页获取评论回复列表
+     * @param {number} parent 
+     * @param {number} [page] 
+     * @param {number} [size] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CommentsApi
+     */
+    public listReplyByPage(parent: number, page?: number, size?: number, options?: any) {
+        return CommentsApiFp(this.configuration).listReplyByPage(parent, page, size, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

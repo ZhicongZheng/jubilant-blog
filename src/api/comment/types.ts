@@ -33,7 +33,7 @@ export interface CommentQuery extends PageQuery {
   /**
    * 类型id
    */
-  typeId?: number
+  resourceId?: number
   /**
    * 评论类型
    */

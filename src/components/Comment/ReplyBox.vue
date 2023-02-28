@@ -1,10 +1,6 @@
 <template>
   <div class="reply-box" v-if="show">
     <div class="box-normal">
-      <div class="reply-box-avatar">
-        <img class="shoka-avatar" v-if="user.avatar" :src="user.avatar" alt="" />
-        <img class="shoka-avatar" v-else :src="blog.siteConfig.touristAvatar" alt="" />
-      </div>
       <div class="reply-box-warp">
         <textarea
           class="reply-box-textarea"
@@ -24,11 +20,9 @@
 
 <script setup lang="ts">
 import { reactive, computed, toRefs } from "vue"
-import { addComment } from "@/api/comment"
-import { CommentForm } from "@/api/comment/types"
-import useStore from "@/store"
 import emojiList from "@/utils/emoji"
-const { user, blog, app } = useStore()
+import { api } from "@/request/service"
+import { CommentCommand } from "@/request/generator"
 const lineStyle = {
   lineHeight: "normal",
   borderColor: "#ed6ea0",
@@ -52,16 +46,16 @@ const data = reactive({
   sendActive: false,
   show: props.show,
   commentContent: "",
-  commentForm: {
-    typeId: props.typeId,
-    commentType: props.commentType,
-    parentId: undefined,
-    replyId: undefined,
-    toUid: undefined,
-    commentContent: ""
-  } as CommentForm
+
+  commentReply: {
+    replyTo: undefined,
+    replyUser: undefined,
+    resourceId: props.typeId,
+    typ: props.commentType,
+    content: ""
+  } as CommentCommand
 })
-const { nickname, sendActive, show, commentContent, commentForm } = toRefs(data)
+const { nickname, sendActive, show, commentContent, commentReply } = toRefs(data)
 const placeholderText = computed(() => (nickname.value ? `回复 @${nickname.value}：` : "发一条友善的评论"))
 const inputActive = () => {
   if (commentContent.value.length == 0) {
@@ -75,38 +69,38 @@ const handleEmoji = (key: string) => {
   sendActive.value = true
 }
 const handleAdd = () => {
-  if (!user.id) {
-    app.setLoginFlag(true)
-    return
-  }
   if (commentContent.value.trim() == "") {
     window.$message?.error("评论不能为空")
     return
   }
   // 解析表情
-  commentForm.value.commentContent = commentContent.value.replace(/\[.+?\]/g, (str) => {
+  commentReply.value.content = commentContent.value.replace(/\[.+?\]/g, (str) => {
     return (
       "<img src= '" + emojiList[str] + "' width='21' height='21' style='margin: 0 1px;vertical-align: text-bottom'/>"
     )
   })
-  addComment(commentForm.value).then(({ data }) => {
-    if (data.flag) {
-      sendActive.value = false
-      commentContent.value = ""
-      if (blog.siteConfig.commentCheck) {
-        window.$message?.warning("评论成功，正在审核中")
-      } else {
-        window.$message?.success("评论成功")
-      }
-      // 重新加载评论列表
-      emit("reload")
-    }
+
+  api.CommentApi.addComment({
+    typ: commentReply.value.typ,
+    content: commentReply.value.content,
+    userName: nickname.value,
+    userEmail: "",
+    replyTo: commentReply.value.replyTo,
+    replyUser: commentReply.value.replyUser,
+    resourceId: commentReply.value.resourceId,
+    allowNotify: false
+  }).then(() => {
+    sendActive.value = false
+    commentContent.value = ""
+    window.$message?.success("评论成功")
+    // 重新加载评论列表
+    emit("reload")
   })
 }
 const setReply = (flag: boolean) => {
   show.value = flag
 }
-defineExpose({ commentForm, nickname, setReply })
+defineExpose({ commentReply, nickname, setReply })
 </script>
 
 <style scoped></style>

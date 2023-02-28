@@ -9,7 +9,8 @@ import {
   ArticleApi,
   ArticleTagsApi,
   ArticleCategoriesApi,
-  SiteInfoAPIApi
+  SiteInfoAPIApi,
+  CommentsApi
 } from "@/request/generator"
 
 /** 创建请求实例 */
@@ -100,5 +101,6 @@ export const api = {
   ArticleApi: new ArticleApi(new Configuration({}), "", service),
   ArticleTagApi: new ArticleTagsApi(new Configuration({}), "", service),
   ArticleCategoryApi: new ArticleCategoriesApi(new Configuration({}), "", service),
-  SiteApi: new SiteInfoAPIApi(new Configuration({}), "", service)
+  SiteApi: new SiteInfoAPIApi(new Configuration({}), "", service),
+  CommentApi: new CommentsApi(new Configuration({}), "", service)
 }

@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue"
+
 const current = ref(1)
 const page = ref(5)
 const show = ref(false)
