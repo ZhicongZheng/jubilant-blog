@@ -4,7 +4,12 @@
       <svg-icon icon-class="comment" size="1.4rem" style="margin-right: 5px" />
       评论
     </div>
-    <ReplyBox @reload="reloadComments" :comment-type="commentType" :type-id="resourceId" />
+    <ReplyBox
+      @reload="reloadComments"
+      :comment-type="commentType"
+      :show-user-info="showUserinfo"
+      :type-id="resourceId"
+    />
     <div v-if="count > 0 && reFresh">
       <div class="reply-item" v-for="(comment, index) of comments" :key="comment.id">
         <div class="content-warp">
@@ -47,6 +52,7 @@
             ref="replyRef"
             class="mt-4"
             :show="false"
+            :show-user-info="showUserinfo"
             :comment-type="commentType"
             :type-id="resourceId"
             @reload="reloadReplies(index)"
@@ -68,7 +74,9 @@ import { useRoute } from "vue-router"
 import { formatDateTime } from "@/utils/date"
 import { api } from "@/request/service"
 import { CommentDto } from "@/request/generator"
+import useStore from "@/store"
 
+const { user } = useStore()
 const route = useRoute()
 const replyRef = ref<any>([])
 const pageRef = ref<any>([])
@@ -80,6 +88,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["getCommentCount"])
 const resourceId = computed(() => (Number(route.params.id) ? Number(route.params.id) : undefined))
+const showUserinfo = computed(() => user.userEmail.length > 0)
 const data = reactive({
   count: 0,
   reFresh: true,
@@ -124,12 +133,16 @@ const getCurrentPage = (current: number, index: number, commentId: number) => {
 const handleReply = (index: number, target: CommentDto) => {
   replyRef.value.forEach((reply: any) => reply.setReply(false))
   const currentReply = replyRef.value[index]
-  currentReply.nickname = target.userName
+  currentReply.userName = user.userName
+  currentReply.userEmail = user.userEmail
+  currentReply.allowNotify = user.allowNotify
+  currentReply.rememberMe = user.rememberMe
   currentReply.commentReply.replyTo = target.id
   currentReply.commentReply.replyUser = target.userName
   currentReply.commentReply.resourceId = target.resourceId
   currentReply.commentReply.typ = target.typ
   currentReply.setReply(true)
+  currentReply.setShowUserInfo(showUserinfo.value)
 }
 const fetchCommentList = () => {
   api.CommentApi.listCommentByPage(

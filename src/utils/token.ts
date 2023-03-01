@@ -2,7 +2,7 @@ import Cookies from "js-cookie"
 
 const TokenKey = "Token"
 
-const domain = ".ttkwsd.top"
+const domain = ".anyfun.top"
 
 // token前缀
 export const token_prefix = "Bearer "

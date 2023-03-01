@@ -85,3 +85,10 @@ export interface UserState {
    */
   talkLikeSet: number[]
 }
+
+export interface UserInfo {
+  userName: String
+  userEmail?: string
+  allowNotify: Boolean
+  rememberMe: Boolean
+}

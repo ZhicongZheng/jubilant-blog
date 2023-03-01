@@ -46,7 +46,7 @@ const send = () => {
   const userNickname = user.nickname ? user.nickname : "游客"
   const message = {
     avatar: userAvatar,
-    nickname: userNickname,
+    userName: userNickname,
     messageContent: messageContent.value
   }
   addMessage(message).then(({ data }) => {

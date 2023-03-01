@@ -35,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue"
+import { useRoute } from "vue-router"
 import { login } from "@/api/login"
 import { LoginForm } from "@/api/login/types"
 import config from "@/assets/js/config"

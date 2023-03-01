@@ -11,7 +11,7 @@ export interface RecentComment {
   /**
    * 昵称
    */
-  nickname: number
+  userName: number
   /**
    * 头像
    */

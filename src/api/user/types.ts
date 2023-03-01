@@ -19,7 +19,7 @@ export interface UserInfo {
   /**
    * 昵称
    */
-  nickname: string
+  userName: string
   /**
    * 个人网站
    */

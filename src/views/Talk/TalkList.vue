@@ -22,7 +22,7 @@
           <img class="user-avatar" :src="talk.avatar" />
           <div class="talk-info">
             <span class="talk-user-name"
-              >{{ talk.nickname }}<svg-icon icon-class="badge" style="margin-left: 0.4rem"
+              >{{ talk.userName }}<svg-icon icon-class="badge" style="margin-left: 0.4rem"
             /></span>
             <span class="talk-time">{{ formatDateTime(talk.createTime) }}</span>
           </div>

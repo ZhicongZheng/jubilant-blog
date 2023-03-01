@@ -17,7 +17,7 @@
         <div class="talk-content-wrap">
           <div class="talk-info">
             <span class="talk-user-name"
-              >{{ talk.nickname }}<svg-icon icon-class="badge" style="margin-left: 0.4rem"
+              >{{ talk.userName }}<svg-icon icon-class="badge" style="margin-left: 0.4rem"
             /></span>
             <span class="talk-time">{{ formatDateTime(talk.createTime) }}</span>
           </div>
@@ -57,7 +57,7 @@ const data = reactive({
   commentType: 3,
   talk: {
     id: 0,
-    nickname: "",
+    userName: "",
     avatar: "",
     talkContent: "",
     imgList: [],

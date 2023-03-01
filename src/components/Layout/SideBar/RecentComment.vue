@@ -12,7 +12,7 @@
       <div class="comment-content">
         <div class="info">
           <!-- 昵称 -->
-          <span>{{ comment.nickname }}</span>
+          <span>{{ comment.userName }}</span>
           <!-- 时间 -->
           <div>{{ formatDate(comment.createTime) }}</div>
         </div>

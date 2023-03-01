@@ -65,13 +65,6 @@ import useStore from "@/store"
 const { user, blog } = useStore()
 const router = useRouter()
 const route = useRoute()
-const logout = () => {
-  if (route.path == "/user") {
-    router.go(-1)
-  }
-  user.LogOut()
-  window.$message?.success("退出成功")
-}
 </script>
 
 <style lang="scss" scoped>

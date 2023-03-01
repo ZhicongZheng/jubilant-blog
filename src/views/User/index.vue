@@ -16,7 +16,7 @@
         <div class="info mt-4">
           <n-form label-align="left" :label-width="80" :model="userForm">
             <n-form-item label="昵称" path="nickname">
-              <n-input placeholder="输入您的昵称" v-model:value="userForm.nickname" />
+              <n-input placeholder="输入您的昵称" v-model:value="userForm.userName" />
             </n-form-item>
             <n-form-item label="个人网站" path="website">
               <n-input placeholder="请输入个人网站" v-model:value="userForm.webSite" />
@@ -48,14 +48,13 @@ import useStore from "@/store"
 const { user, app } = useStore()
 const router = useRouter()
 const userForm = ref<UserInfo>({
-  nickname: user.nickname,
+  userName: user.nickname,
   intro: user.intro,
   webSite: user.webSite
 })
 const handleUpdate = () => {
   updateUserInfo(userForm.value).then(({ data }) => {
     if (data.flag) {
-      user.updateUserInfo(userForm.value)
       window.$message?.success("修改成功")
     }
   })

@@ -9,7 +9,7 @@ export interface Talk {
   /**
    * 昵称
    */
-  nickname: string
+  userName: string
   /**
    * 头像
    */
