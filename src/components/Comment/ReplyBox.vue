@@ -14,25 +14,32 @@
     </div>
     <div class="box-expand">
       <Emoji @add-emoji="handleEmoji" />
+      <div class="user-switch">
+        <div>
+          <n-switch v-model:value="allowNotify" style="margin-left: 1rem" size="small" />
+          <span style="margin-left: 1rem; font-size: 12px">接受邮件通知</span>
+        </div>
+        <div>
+          <n-switch v-model:value="rememberMe" style="margin-left: 1rem" size="small" />
+          <span style="margin-left: 1rem; font-size: 12px">记住我的信息</span>
+        </div>
+      </div>
     </div>
     <div v-if="showUserInfo" class="comment-user-info">
       <div class="user-name-email">
-        <n-input v-model:value="userName" placeholder="请输入昵称(必填，公开)" maxlength="50" aria-required="true" />
+        <n-input
+          v-model:value="userName"
+          style="width: 45%"
+          placeholder="请输入昵称(必填，公开)"
+          maxlength="50"
+          aria-required="true"
+        />
         <n-input
           v-model:value="userEmail"
+          style="width: 45%"
           placeholder="请输入邮箱(用来通知您评论的回复，非必填，非公开)"
           aria-required="false"
         />
-      </div>
-      <div class="user-switch">
-        <div>
-          <span style="margin-right: 1rem">允许通知</span>
-          <n-switch v-model:value="allowNotify" />
-        </div>
-        <div>
-          <span style="margin-right: 1rem">记住我的信息</span>
-          <n-switch v-model:value="rememberMe" />
-        </div>
       </div>
     </div>
   </div>
@@ -44,6 +51,7 @@ import emojiList from "@/utils/emoji"
 import { api } from "@/request/service"
 import { CommentCommand } from "@/request/generator"
 import useStore from "@/store"
+import isEmail from "@/utils/Regex"
 
 const { user } = useStore()
 const lineStyle = {
@@ -70,10 +78,10 @@ const props = defineProps({
 })
 
 const data = reactive({
-  userName: "",
-  userEmail: "",
-  allowNotify: true,
-  rememberMe: true,
+  userName: user.userName,
+  userEmail: user.userEmail,
+  allowNotify: user.allowNotify,
+  rememberMe: user.rememberMe,
   sendActive: false,
   show: props.show,
   commentContent: "",
@@ -112,6 +120,11 @@ const handleAdd = () => {
     window.$message?.error("昵称不能为空")
     return
   }
+
+  if (allowNotify.value && !isEmail(userEmail.value)) {
+    window.$message?.error("邮箱格式不正确")
+    return
+  }
   // 解析表情
   commentReply.value.content = commentContent.value.replace(/\[.+?\]/g, (str) => {
     return (
@@ -140,6 +153,8 @@ const handleAdd = () => {
         rememberMe: rememberMe.value
       })
       showUserInfo.value = false
+    } else {
+      user.CLearUserInfo()
     }
     // 重新加载评论列表
     emit("reload")
@@ -168,7 +183,6 @@ defineExpose({ commentReply, userName, userEmail, allowNotify, rememberMe, setRe
 .user-switch {
   display: flex;
   font-size: 1rem;
-  margin-top: 0.5rem;
   margin-left: 0.5rem;
   justify-content: space-between;
 }

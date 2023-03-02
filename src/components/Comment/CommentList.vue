@@ -26,14 +26,13 @@
               <div class="sub-user-name">{{ reply.userName }}:</div>
             </div>
             <span class="reply-content">
-              <template v-if="reply.userName !== comment.userName"
+              <template v-if="reply.userName !== reply.replyUser"
                 >回复 <span style="color: #008ac5">@{{ reply.replyUser }}</span> :</template
               >
               <span v-html="reply.content" />
             </span>
             <div class="reply-info">
               <span class="reply-time">{{ formatDateTime(reply.createAt) }}</span>
-
               <span class="reply-btn" @click="handleReply(index, reply)">回复</span>
             </div>
           </div>
@@ -88,7 +87,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["getCommentCount"])
 const resourceId = computed(() => (Number(route.params.id) ? Number(route.params.id) : undefined))
-const showUserinfo = computed(() => user.userEmail.length > 0)
+const showUserinfo = computed(() => user.userName.length == 0)
 const data = reactive({
   count: 0,
   reFresh: true,
@@ -133,10 +132,6 @@ const getCurrentPage = (current: number, index: number, commentId: number) => {
 const handleReply = (index: number, target: CommentDto) => {
   replyRef.value.forEach((reply: any) => reply.setReply(false))
   const currentReply = replyRef.value[index]
-  currentReply.userName = user.userName
-  currentReply.userEmail = user.userEmail
-  currentReply.allowNotify = user.allowNotify
-  currentReply.rememberMe = user.rememberMe
   currentReply.commentReply.replyTo = target.id
   currentReply.commentReply.replyUser = target.userName
   currentReply.commentReply.resourceId = target.resourceId

@@ -1,9 +1,9 @@
-import { getUserInfo, setUserInfo } from "@/utils/localStorage"
+import { getUserInfo, setUserInfo, clearUserInfo } from "@/utils/localStorage"
 import { UserInfo } from "@/store/types"
 
 const useUserStore = defineStore("useUserStore", {
   state: () => ({
-    userName: getUserInfo()?.userName,
+    userName: getUserInfo()?.userName || "",
     userEmail: getUserInfo()?.userEmail,
     allowNotify: getUserInfo()?.allowNotify || true,
     rememberMe: getUserInfo()?.rememberMe || true,
@@ -19,6 +19,13 @@ const useUserStore = defineStore("useUserStore", {
     },
     GetUserInfo() {
       return getUserInfo()
+    },
+    CLearUserInfo() {
+      clearUserInfo()
+      this.userName = ""
+      this.userEmail = undefined
+      this.allowNotify = true
+      this.rememberMe = false
     }
     // articleLike(articleId: number) {
     //   const index = this.articleLikeSet.indexOf(articleId)
