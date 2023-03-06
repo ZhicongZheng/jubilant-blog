@@ -21,8 +21,8 @@
             </div>
             <div class="article-meta">
               <span><svg-icon icon-class="calendar" size="0.95rem" /> {{ formatDate(article.createAt) }}</span>
-              <router-link :to="`/category/${article.category.id}`"
-                ><svg-icon icon-class="qizhi" size="0.9rem" />{{ article.category.name }}</router-link
+              <router-link v-if="article.category" :to="`/category/${article.category?.id}`"
+                ><svg-icon icon-class="qizhi" size="0.9rem" />{{ article.category?.name }}</router-link
               >
             </div>
             <div class="tag-info">

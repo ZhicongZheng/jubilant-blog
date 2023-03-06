@@ -7,32 +7,29 @@
     </div>
     <!-- 评论 -->
     <div class="comment-item" v-for="comment in commentList" :key="comment.id">
-      <!-- 头像 -->
-      <img class="user-avatar" :src="comment.avatar" alt="" />
       <div class="comment-content">
         <div class="info">
           <!-- 昵称 -->
           <span>{{ comment.userName }}</span>
           <!-- 时间 -->
-          <div>{{ formatDate(comment.createTime) }}</div>
+          <div>{{ formatDateTime(comment.createAt) }}</div>
         </div>
         <!-- 内容 -->
-        <span class="content" v-html="comment.commentContent" />
+        <span class="content" v-html="comment.content" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { RecentComment } from "@/api/comment/types"
-import { formatDate } from "@/utils/date"
-const commentList = ref<RecentComment[]>([])
-// onMounted(() => {
-//   getRecentComment().then(({ data }) => {
-//     commentList.value = data.data
-//   })
-// })
+import { ref, onMounted } from "vue"
+import { formatDateTime } from "@/utils/date"
+import { api } from "@/request/service"
+import { CommentDto } from "@/request/generator"
+const commentList = ref<CommentDto[]>([])
+onMounted(() => {
+  api.CommentApi.listRecentComment().then((res) => (commentList.value = res.data))
+})
 </script>
 
 <style lang="scss" scoped>

@@ -10,13 +10,13 @@
     <div class="article-info">
       <div class="article-meta">
         <!-- 置顶 -->
-        <span class="top" v-if="article.isTop == 1">
-          <svg-icon icon-class="top" size="0.85rem" style="margin-right: 0.15rem" />置顶</span
-        >
+        <!--        <span class="top" v-if="article.isTop == 1">-->
+        <!--          <svg-icon icon-class="top" size="0.85rem" style="margin-right: 0.15rem" />置顶</span-->
+        <!--        >-->
         <!-- 发表时间 -->
         <span class="meta-item ml">
           <svg-icon icon-class="calendar" size="0.9rem" style="margin-right: 0.15rem" />{{
-            formatDate(article.createAt)
+            formatDate(article.updateAt)
           }}
         </span>
         <!-- 文章标签 -->
@@ -31,7 +31,7 @@
         </router-link>
       </h3>
       <!-- 文章内容 -->
-      <div class="article-content">{{ article.contentMd }}</div>
+      <div class="article-content">{{ article.introduction }}</div>
       <!-- 文章分类 -->
       <div class="article-category" v-if="article.category">
         <svg-icon icon-class="qizhi" size="0.85rem" style="margin-right: 0.15rem" />

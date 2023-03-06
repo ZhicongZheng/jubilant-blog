@@ -7,7 +7,7 @@ const useUserStore = defineStore("useUserStore", {
     userEmail: getUserInfo()?.userEmail,
     allowNotify: getUserInfo()?.allowNotify || true,
     rememberMe: getUserInfo()?.rememberMe || true,
-    likeArticle: []
+    likedArticle: [] as number[]
   }),
   actions: {
     SetUserInfo(userInfo: UserInfo) {

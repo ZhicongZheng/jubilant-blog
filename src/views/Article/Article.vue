@@ -54,25 +54,25 @@
                 <svg-icon icon-class="like" size="0.9rem" /> 点赞
                 <span>{{ article.likeCount }}</span>
               </button>
-              <n-popover trigger="click" v-if="blog.siteConfig.isReward">
-                <template #trigger>
-                  <button class="btn reward-btn">
-                    <svg-icon icon-class="qr_code" size="0.9rem" />
-                    打赏
-                  </button>
-                </template>
-                <div class="reward-all">
-                  <span>
-                    <img class="reward-img" v-lazy="blog.siteConfig.weiXinCode" />
-                    <div class="reward-desc">微信</div>
-                  </span>
-                  <span style="margin-left: 0.3rem">
-                    <img class="reward-img" v-lazy="blog.siteConfig.aliCode" />
-                    <div class="reward-desc">支付宝</div>
-                  </span>
-                </div>
-              </n-popover>
-              <p class="tea" v-if="blog.siteConfig.isReward">请我喝[茶]~(￣▽￣)~*</p>
+              <!--              <n-popover trigger="click" v-if="blog.siteConfig.isReward">-->
+              <!--                <template #trigger>-->
+              <!--                  <button class="btn reward-btn">-->
+              <!--                    <svg-icon icon-class="qr_code" size="0.9rem" />-->
+              <!--                    打赏-->
+              <!--                  </button>-->
+              <!--                </template>-->
+              <!--                <div class="reward-all">-->
+              <!--                  <span>-->
+              <!--                    <img class="reward-img" v-lazy="blog.siteConfig.weiXinCode" />-->
+              <!--                    <div class="reward-desc">微信</div>-->
+              <!--                  </span>-->
+              <!--                  <span style="margin-left: 0.3rem">-->
+              <!--                    <img class="reward-img" v-lazy="blog.siteConfig.aliCode" />-->
+              <!--                    <div class="reward-desc">支付宝</div>-->
+              <!--                  </span>-->
+              <!--                </div>-->
+              <!--              </n-popover>-->
+              <!--              <p class="tea" v-if="blog.siteConfig.isReward">请我喝[茶]~(￣▽￣)~*</p>-->
             </div>
             <div class="copyright">
               <ul>
@@ -140,7 +140,7 @@ import { Share } from "vue3-social-share"
 import "vue3-social-share/lib/index.css"
 import { api } from "@/request/service"
 import { ArticleDto } from "@/request/generator"
-const { app, blog } = useStore()
+const { user, app, blog } = useStore()
 const articleContentRef = ref()
 const article = ref<ArticleDto>()
 const route = useRoute()
@@ -173,6 +173,7 @@ const like = () => {
   api.ArticleApi.likeArticle(article.value!.id).then(() => {
     article.value!.likeCount += 1
     liked.value = true
+    user.likedArticle.push(article.value!.id)
   })
 }
 onMounted(() => {

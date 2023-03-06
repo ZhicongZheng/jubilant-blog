@@ -39,20 +39,20 @@
         <a v-if="isShowSocial('github')" target="_blank" :href="blog.siteConfig.github" class="social-item">
           <svg-icon icon-class="github" size="1.4rem" />
         </a>
-        <a v-if="isShowSocial('gitee')" target="_blank" :href="blog.siteConfig.gitee" class="social-item">
-          <svg-icon icon-class="gitee" size="1.4rem" />
-        </a>
-        <a v-if="isShowSocial('bilibili')" target="_blank" :href="blog.siteConfig.bilibili" class="social-item">
-          <svg-icon icon-class="bilibili" size="1.4rem" />
-        </a>
-        <a
-          v-if="isShowSocial('qq')"
-          target="_blank"
-          :href="'http://wpa.qq.com/msgrd?v=3&uin=' + blog.siteConfig.qq + '&site=qq&menu=yes'"
-          class="social-item"
-        >
-          <svg-icon icon-class="qq" size="1.4rem" color="#00a1d6" />
-        </a>
+        <!--        <a v-if="isShowSocial('gitee')" target="_blank" :href="blog.siteConfig.gitee" class="social-item">-->
+        <!--          <svg-icon icon-class="gitee" size="1.4rem" />-->
+        <!--        </a>-->
+        <!--        <a v-if="isShowSocial('bilibili')" target="_blank" :href="blog.siteConfig.bilibili" class="social-item">-->
+        <!--          <svg-icon icon-class="bilibili" size="1.4rem" />-->
+        <!--        </a>-->
+        <!--        <a-->
+        <!--          v-if="isShowSocial('qq')"-->
+        <!--          target="_blank"-->
+        <!--          :href="'http://wpa.qq.com/msgrd?v=3&uin=' + blog.siteConfig.qq + '&site=qq&menu=yes'"-->
+        <!--          class="social-item"-->
+        <!--        >-->
+        <!--          <svg-icon icon-class="qq" size="1.4rem" color="#00a1d6" />-->
+        <!--        </a>-->
       </div>
       <!-- 菜单 -->
       <ul class="side-menu">
@@ -73,37 +73,37 @@
             </li>
           </ul>
         </li>
-        <li class="item dropdown" :class="{ expand: funExpand(route.meta.title as string) }">
-          <a><svg-icon icon-class="fun" /> 娱乐</a>
-          <ul class="submenu">
-            <li class="item" :class="{ active: route.meta.title === '说说' }">
-              <router-link to="/talk"> <svg-icon icon-class="talk" /> 说说 </router-link>
-            </li>
-            <li class="item" :class="{ active: route.path === '/album' }">
-              <router-link to="/album"> <svg-icon icon-class="album" /> 相册 </router-link>
-            </li>
-          </ul>
-        </li>
+        <!--        <li class="item dropdown" :class="{ expand: funExpand(route.meta.title as string) }">-->
+        <!--          <a><svg-icon icon-class="fun" /> 娱乐</a>-->
+        <!--          <ul class="submenu">-->
+        <!--            <li class="item" :class="{ active: route.meta.title === '说说' }">-->
+        <!--              <router-link to="/talk"> <svg-icon icon-class="talk" /> 说说 </router-link>-->
+        <!--            </li>-->
+        <!--            <li class="item" :class="{ active: route.path === '/album' }">-->
+        <!--              <router-link to="/album"> <svg-icon icon-class="album" /> 相册 </router-link>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+        <!--        </li>-->
         <li class="item" :class="{ active: route.path === '/friend' }">
           <router-link to="/friend"> <svg-icon icon-class="friend" /> 友链 </router-link>
         </li>
-        <li class="item" :class="{ active: route.path === '/message' }">
-          <router-link to="/message"> <svg-icon icon-class="message" /> 留言板 </router-link>
-        </li>
+        <!--        <li class="item" :class="{ active: route.path === '/message' }">-->
+        <!--          <router-link to="/message"> <svg-icon icon-class="message" /> 留言板 </router-link>-->
+        <!--        </li>-->
         <li class="item" :class="{ active: route.path === '/about' }">
           <router-link to="/about"> <svg-icon icon-class="plane" /> 关于 </router-link>
         </li>
-        <li class="item" v-if="!user.id">
-          <a @click="app.loginFlag = true"> <svg-icon icon-class="user" /> 登录 </a>
-        </li>
-        <template v-else>
-          <li class="item" :class="{ active: route.path === '/user' }">
-            <router-link to="/user"> <svg-icon icon-class="author" /> 个人中心 </router-link>
-          </li>
-          <li class="item">
-            <a @click="logout"> <svg-icon icon-class="logout" /> 退出 </a>
-          </li>
-        </template>
+        <!--        <li class="item" v-if="!user.id">-->
+        <!--          <a @click="app.loginFlag = true"> <svg-icon icon-class="user" /> 登录 </a>-->
+        <!--        </li>-->
+        <!--        <template v-else>-->
+        <!--          <li class="item" :class="{ active: route.path === '/user' }">-->
+        <!--            <router-link to="/user"> <svg-icon icon-class="author" /> 个人中心 </router-link>-->
+        <!--          </li>-->
+        <!--          <li class="item">-->
+        <!--            <a @click="logout"> <svg-icon icon-class="logout" /> 退出 </a>-->
+        <!--          </li>-->
+        <!--        </template>-->
       </ul>
     </n-drawer-content>
   </n-drawer>

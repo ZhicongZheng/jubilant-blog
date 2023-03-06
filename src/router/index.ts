@@ -8,13 +8,13 @@ const routes: RouteRecordRaw[] = [
       title: "首页"
     }
   },
-  {
-    path: "/message",
-    component: () => import("@/views/Message/index.vue"),
-    meta: {
-      title: "留言"
-    }
-  },
+  // {
+  //   path: "/message",
+  //   component: () => import("@/views/Message/index.vue"),
+  //   meta: {
+  //     title: "留言"
+  //   }
+  // },
   {
     path: "/about",
     component: () => import("@/views/About/index.vue"),
@@ -44,13 +44,13 @@ const routes: RouteRecordRaw[] = [
       title: "归档"
     }
   },
-  {
-    path: "/user",
-    component: () => import("@/views/User/index.vue"),
-    meta: {
-      title: "个人中心"
-    }
-  },
+  // {
+  //   path: "/user",
+  //   component: () => import("@/views/User/index.vue"),
+  //   meta: {
+  //     title: "个人中心"
+  //   }
+  // },
   {
     path: "/category",
     component: () => import("@/views/Category/index.vue"),

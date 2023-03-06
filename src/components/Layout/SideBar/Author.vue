@@ -38,20 +38,20 @@
       <a v-if="isShowSocial('github')" target="_blank" :href="blog.siteConfig.github" class="social-item">
         <svg-icon icon-class="github" size="1.4rem" />
       </a>
-      <a v-if="isShowSocial('gitee')" target="_blank" :href="blog.siteConfig.gitee" class="social-item">
-        <svg-icon icon-class="gitee" size="1.4rem" />
-      </a>
-      <a v-if="isShowSocial('bilibili')" target="_blank" :href="blog.siteConfig.bilibili" class="social-item">
-        <svg-icon icon-class="bilibili" size="1.4rem" />
-      </a>
-      <a
-        v-if="isShowSocial('qq')"
-        target="_blank"
-        :href="'http://wpa.qq.com/msgrd?v=3&uin=' + blog.siteConfig.qq + '&site=qq&menu=yes'"
-        class="social-item"
-      >
-        <svg-icon icon-class="qq" size="1.4rem" color="#00a1d6" />
-      </a>
+      <!--      <a v-if="isShowSocial('gitee')" target="_blank" :href="blog.siteConfig.gitee" class="social-item">-->
+      <!--        <svg-icon icon-class="gitee" size="1.4rem" />-->
+      <!--      </a>-->
+      <!--      <a v-if="isShowSocial('bilibili')" target="_blank" :href="blog.siteConfig.bilibili" class="social-item">-->
+      <!--        <svg-icon icon-class="bilibili" size="1.4rem" />-->
+      <!--      </a>-->
+      <!--      <a-->
+      <!--        v-if="isShowSocial('qq')"-->
+      <!--        target="_blank"-->
+      <!--        :href="'http://wpa.qq.com/msgrd?v=3&uin=' + blog.siteConfig.qq + '&site=qq&menu=yes'"-->
+      <!--        class="social-item"-->
+      <!--      >-->
+      <!--        <svg-icon icon-class="qq" size="1.4rem" color="#00a1d6" />-->
+      <!--      </a>-->
     </div>
   </div>
 </template>

@@ -1012,7 +1012,19 @@ export interface SiteConfig {
      * @type {string}
      * @memberof SiteConfig
      */
+    authorAvatar: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
     aboutMe: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SiteConfig
+     */
+    github: string;
 }
 /**
  * 
@@ -2657,6 +2669,43 @@ export const CommentsApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * 获取最新评论
+         * @summary 获取最新评论
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listRecentComment: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/comments/recent`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            const queryParameters = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                queryParameters.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.query) {
+                queryParameters.set(key, options.query[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(queryParameters)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * 分页获取评论回复列表
          * @summary 分页获取评论回复列表
          * @param {number} parent 
@@ -2763,6 +2812,19 @@ export const CommentsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
+         * 获取最新评论
+         * @summary 获取最新评论
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listRecentComment(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CommentDto>>> {
+            const localVarAxiosArgs = await CommentsApiAxiosParamCreator(configuration).listRecentComment(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
          * 分页获取评论回复列表
          * @summary 分页获取评论回复列表
          * @param {number} parent 
@@ -2818,6 +2880,15 @@ export const CommentsApiFactory = function (configuration?: Configuration, baseP
          */
         listCommentByPage(resourceId: number, page?: number, size?: number, options?: any): AxiosPromise<PageCommentDto> {
             return CommentsApiFp(configuration).listCommentByPage(resourceId, page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 获取最新评论
+         * @summary 获取最新评论
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listRecentComment(options?: any): AxiosPromise<Array<CommentDto>> {
+            return CommentsApiFp(configuration).listRecentComment(options).then((request) => request(axios, basePath));
         },
         /**
          * 分页获取评论回复列表
@@ -2877,6 +2948,17 @@ export class CommentsApi extends BaseAPI {
      */
     public listCommentByPage(resourceId: number, page?: number, size?: number, options?: any) {
         return CommentsApiFp(this.configuration).listCommentByPage(resourceId, page, size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 获取最新评论
+     * @summary 获取最新评论
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CommentsApi
+     */
+    public listRecentComment(options?: any) {
+        return CommentsApiFp(this.configuration).listRecentComment(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

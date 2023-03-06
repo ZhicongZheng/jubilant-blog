@@ -12,12 +12,12 @@
       <Footer />
       <Tool />
       <Search />
-      <Login />
-      <Register />
-      <Forget />
-      <Email />
+      <!--      <Login />-->
+      <!--      <Register />-->
+      <!--      <Forget />-->
+      <!--      <Email />-->
       <Drawer />
-      <MusicPlayer />
+      <!--      <MusicPlayer />-->
     </div>
   </Provider>
 </template>
