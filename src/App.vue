@@ -27,7 +27,7 @@ import { onMounted } from "vue"
 import useStore from "@/store"
 import { api } from "@/request/service"
 
-const { blog } = useStore()
+const { blog, user } = useStore()
 
 onMounted(() => {
   console.log(
@@ -36,6 +36,7 @@ onMounted(() => {
     "background:#ec8c69 ; padding: 1px; border-radius: 0 3px 3px 0;  color: #000; padding:5px 0;",
     "background:transparent"
   )
+  user.init()
   api.SiteApi.getSiteInfo().then((res) => {
     blog.setBlogInfo(res.data)
   })

@@ -20,21 +20,24 @@ const useUserStore = defineStore("useUserStore", {
     GetUserInfo() {
       return getUserInfo()
     },
+    init() {
+      this.likedArticle = new Array<number>()
+    },
     CLearUserInfo() {
       clearUserInfo()
       this.userName = ""
       this.userEmail = undefined
       this.allowNotify = true
       this.rememberMe = false
+    },
+    articleLike(articleId: number) {
+      const index = this.likedArticle.indexOf(articleId)
+      if (index != -1) {
+        this.likedArticle.splice(index, 1)
+      } else {
+        this.likedArticle.push(articleId)
+      }
     }
-    // articleLike(articleId: number) {
-    //   const index = this.articleLikeSet.indexOf(articleId)
-    //   if (index != -1) {
-    //     this.articleLikeSet.splice(index, 1)
-    //   } else {
-    //     this.articleLikeSet.push(articleId)
-    //   }
-    // },
     // talkLike(talkId: number) {
     //   const index = this.talkLikeSet.indexOf(talkId)
     //   if (index != -1) {

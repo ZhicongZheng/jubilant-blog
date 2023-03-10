@@ -1374,10 +1374,11 @@ export const ArticleApiAxiosParamCreator = function (configuration?: Configurati
          * 点赞文章
          * @summary 点赞文章
          * @param {number} id 
+         * @param {boolean} [like] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        likeArticle: async (id: number, options: any = {}): Promise<RequestArgs> => {
+        likeArticle: async (id: number, like?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
                 throw new RequiredError('id','Required parameter id was null or undefined when calling likeArticle.');
@@ -1396,6 +1397,10 @@ export const ArticleApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
             // authentication apiKeyAuth required
+
+            if (like !== undefined) {
+                localVarQueryParameter['like'] = like;
+            }
 
 
     
@@ -1630,11 +1635,12 @@ export const ArticleApiFp = function(configuration?: Configuration) {
          * 点赞文章
          * @summary 点赞文章
          * @param {number} id 
+         * @param {boolean} [like] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeArticle(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await ArticleApiAxiosParamCreator(configuration).likeArticle(id, options);
+        async likeArticle(id: number, like?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await ArticleApiAxiosParamCreator(configuration).likeArticle(id, like, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs = {...localVarAxiosArgs.options, url: (configuration?.basePath || basePath) + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1729,11 +1735,12 @@ export const ArticleApiFactory = function (configuration?: Configuration, basePa
          * 点赞文章
          * @summary 点赞文章
          * @param {number} id 
+         * @param {boolean} [like] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        likeArticle(id: number, options?: any): AxiosPromise<void> {
-            return ArticleApiFp(configuration).likeArticle(id, options).then((request) => request(axios, basePath));
+        likeArticle(id: number, like?: boolean, options?: any): AxiosPromise<void> {
+            return ArticleApiFp(configuration).likeArticle(id, like, options).then((request) => request(axios, basePath));
         },
         /**
          * 分页获取文章列表
@@ -1819,12 +1826,13 @@ export class ArticleApi extends BaseAPI {
      * 点赞文章
      * @summary 点赞文章
      * @param {number} id 
+     * @param {boolean} [like] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArticleApi
      */
-    public likeArticle(id: number, options?: any) {
-        return ArticleApiFp(this.configuration).likeArticle(id, options).then((request) => request(this.axios, this.basePath));
+    public likeArticle(id: number, like?: boolean, options?: any) {
+        return ArticleApiFp(this.configuration).likeArticle(id, like, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

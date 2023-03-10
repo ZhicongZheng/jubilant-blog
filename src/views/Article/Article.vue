@@ -170,10 +170,21 @@ const deleteHTMLTag = (content: string) => {
     .replace(/&npsp;/gi, "")
 }
 const like = () => {
-  api.ArticleApi.likeArticle(article.value!.id).then(() => {
-    article.value!.likeCount += 1
-    liked.value = true
-    user.likedArticle.push(article.value!.id)
+  const articleId = article.value?.id
+  if (!articleId) {
+    console.log("article is undefined")
+    return
+  }
+  const beLike = user.likedArticle.indexOf(articleId) > -1
+  api.ArticleApi.likeArticle(articleId, beLike).then(() => {
+    user.articleLike(articleId)
+    if (beLike) {
+      article.value!.likeCount += 1
+      liked.value = true
+    } else {
+      article.value!.likeCount -= 1
+      liked.value = false
+    }
   })
 }
 onMounted(() => {
