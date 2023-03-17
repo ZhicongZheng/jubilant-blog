@@ -26,6 +26,7 @@
 import { onMounted } from "vue"
 import useStore from "@/store"
 import { api } from "@/request/service"
+import ActionType from "@/constant/actionType"
 
 const { blog, user } = useStore()
 
@@ -42,7 +43,7 @@ onMounted(() => {
   })
 
   api.SiteApi.onAction({
-    typ: 1,
+    typ: ActionType.VISIT,
     resourceId: -1,
     resourceInfo: "/"
   })

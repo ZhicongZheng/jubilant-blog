@@ -38,14 +38,6 @@ const useUserStore = defineStore("useUserStore", {
         this.likedArticle.push(articleId)
       }
     }
-    // talkLike(talkId: number) {
-    //   const index = this.talkLikeSet.indexOf(talkId)
-    //   if (index != -1) {
-    //     this.talkLikeSet.splice(index, 1)
-    //   } else {
-    //     this.talkLikeSet.push(talkId)
-    //   }
-    // }
   },
   getters: {},
   persist: {

@@ -52,6 +52,7 @@ import { api } from "@/request/service"
 import { CommentCommand } from "@/request/generator"
 import useStore from "@/store"
 import isEmail from "@/utils/Regex"
+import ActionType from "@/constant/actionType"
 
 const { user } = useStore()
 const lineStyle = {
@@ -158,6 +159,12 @@ const handleAdd = () => {
     }
     // 重新加载评论列表
     emit("reload")
+  })
+
+  api.SiteApi.onAction({
+    typ: ActionType.COMMENT,
+    resourceId: commentReply.value.resourceId,
+    resourceInfo: ""
   })
 }
 const setReply = (flag: boolean) => {

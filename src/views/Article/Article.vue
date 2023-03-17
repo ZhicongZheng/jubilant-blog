@@ -51,7 +51,8 @@
             </div>
             <div class="reward">
               <button class="btn" :class="isLike" @click="like">
-                <svg-icon icon-class="like" size="0.9rem" /> 点赞
+                <svg-icon icon-class="like" size="0.9rem" />
+                点赞
                 <span>{{ article.likeCount }}</span>
               </button>
               <!--              <n-popover trigger="click" v-if="blog.siteConfig.isReward">-->
@@ -140,6 +141,8 @@ import { Share } from "vue3-social-share"
 import "vue3-social-share/lib/index.css"
 import { api } from "@/request/service"
 import { ArticleDto } from "@/request/generator"
+import ActionType from "@/constant/actionType"
+
 const { user, app, blog } = useStore()
 const articleContentRef = ref()
 const article = ref<ArticleDto>()
@@ -186,6 +189,11 @@ const like = () => {
       liked.value = false
     }
   })
+  api.SiteApi.onAction({
+    typ: ActionType.LICK_ARTICLE,
+    resourceId: Number(route.params.id),
+    resourceInfo: route.path
+  })
 }
 onMounted(() => {
   api.ArticleApi.getArticle(Number(route.params.id)).then((res) => {
@@ -194,6 +202,11 @@ onMounted(() => {
     wordNum.value = deleteHTMLTag(article.value?.contentMd).length
     readTime.value = Math.round(wordNum.value / 400)
     articleLoaded.value = true
+  })
+  api.SiteApi.onAction({
+    typ: ActionType.VIEW_ARTICLE,
+    resourceId: Number(route.params.id),
+    resourceInfo: route.path
   })
 })
 </script>
