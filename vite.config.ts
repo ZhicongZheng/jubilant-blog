@@ -75,7 +75,7 @@ export default defineConfig({
     /** 接口代理 */
     proxy: {
       "/api/v1": {
-        target: "http://localhost:9000",
+        target: "http://localhost:9080",
         ws: true,
         /** 是否允许跨域 */
         changeOrigin: true,
